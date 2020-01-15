@@ -1,0 +1,25 @@
+﻿<Window x:Class="TestWPF1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:TestWPF1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="0,0,3.6,-1">
+        <InkCanvas x:Name="InkCanvas" x:FieldModifier="public" MouseLeftButtonDown="OnInkCanvasMouseDown" MouseUp="OnInkCanvasMouseUp" MouseMove="OnInkCanvasMouseMove" Background="Transparent" Opacity="1" EditingMode="Ink" Margin="0,0,0,10" >
+            <InkCanvas.DefaultDrawingAttributes>
+                <DrawingAttributes Color="Black" Width="2" Height="2" />
+            </InkCanvas.DefaultDrawingAttributes>
+        </InkCanvas>
+        <Button x:Name="Draw" Content="Draw" HorizontalAlignment="Left"  Click="OnClickDraw_btn"  Height="21" Margin="23,380,0,-6" VerticalAlignment="Top" Width="58" />
+        <Button x:Name="DrawLine" Content="Drawline" Click="OnClickDrawLine_btn" HorizontalAlignment="Left" Height="21" Margin="99,380,0,0" VerticalAlignment="Top" Width="58"/>
+        <Button x:Name="Select" Content="Select" Click="OnClickSelect_btn" HorizontalAlignment="Left" Height="21" Margin="176,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
+        <Button x:Name="Copy" Content="Copy" Click="OnClickCopy_btn" HorizontalAlignment="Left" Height="21" Margin="256,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
+        <Button x:Name="Paste" Content="Paste" Click="OnClickPaste_btn" HorizontalAlignment="Left" Height="21" Margin="329,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
+        <Button x:Name="color" Content="Color" Click="OnClickColor_btn" HorizontalAlignment="Left" Height="21" Margin="403,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
+        <xctk:ColorPicker Name="cp" Margin="484,380,123,20" DisplayColorAndName="True" SelectedColorChanged="OnColorPick_cp" AvailableColorsSortingMode="HueSaturationBrightness" />
+    </Grid>
+
+</Window>

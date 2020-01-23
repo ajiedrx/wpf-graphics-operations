@@ -69,7 +69,7 @@ namespace TestWPF1
             {
                 points.Add(new StylusPoint(aPoint.X, aPoint.Y));
             }
-            Stroke newStroke = new Stroke(points, drawingAttribute);
+            MyStroke newStroke = new MyStroke(points, drawingAttribute);
             _InkCanvas.Strokes.Add(newStroke);
             tempLine = new Polyline();
             tempLine.Stroke = Brushes.Black;
@@ -93,7 +93,7 @@ namespace TestWPF1
             {
                 points.Add(new StylusPoint(aPoint.X, aPoint.Y));
             }
-            Stroke newStroke = new Stroke(points, drawingAttribute);
+            MyStroke newStroke = new MyStroke(points, drawingAttribute);
             _InkCanvas.Strokes.Add(newStroke);
             PolygonShape newPolygonShape = new PolygonShape(tempPolygon, tempPolygon.Fill.ToString());
             tempPolygon = new Polygon();
@@ -109,16 +109,16 @@ namespace TestWPF1
             _InkCanvas.Children.Add(tempPolygon);
         }
 
-        public void trackMouseMove(InkCanvas _InkCanvas)
-        {
-            foreach (Stroke s in _InkCanvas.Strokes)
-            {
-                foreach (StylusPoint sp in s.StylusPoints)
-                {
-                    Console.WriteLine(sp.ToPoint());
-                }
-            }
-        }
+        //public void trackMouseMove(InkCanvas _InkCanvas)
+        //{
+        //    foreach (Stroke s in _InkCanvas.Strokes)
+        //    {
+        //        foreach (StylusPoint sp in s.StylusPoints)
+        //        {
+        //            Console.WriteLine(sp.ToPoint());
+        //        }
+        //    }
+        //}
 
         public void selectState(InkCanvas _InkCanvas, InkCanvasEditingMode _InkCanvasEditingMode, string _state)
         {
@@ -151,7 +151,7 @@ namespace TestWPF1
         }
 
         public void replaceSelectedStroke(InkCanvas _InkCanvas) {
-            StrokeCollection strokeCollection = new StrokeCollection(_InkCanvas.GetSelectedStrokes());
+            MyStrokeCollection strokeCollection = new MyStrokeCollection(_InkCanvas.GetSelectedStrokes());
             printPolygon(strokeCollection, _InkCanvas);
             foreach (Stroke aStroke in strokeCollection){
                 _InkCanvas.Strokes.Remove(aStroke);
@@ -165,18 +165,18 @@ namespace TestWPF1
                 color.setColorFill(_colorPicker.SelectedColor.ToString());
                 fillColor(_InkCanvas);
                 _InkCanvas.Children.Remove(polygon);
-                printPolygon(_InkCanvas.GetSelectedStrokes(), _InkCanvas);
+                MyStrokeCollection strokeCollection = new MyStrokeCollection(_InkCanvas.GetSelectedStrokes());
+                printPolygon(strokeCollection, _InkCanvas);
             }
         }
 
-        public void printPolygon(StrokeCollection strokeCollection, InkCanvas _InkCanvas)
+        public void printPolygon(MyStrokeCollection strokeCollection, InkCanvas _InkCanvas)
         {
-            StrokeCollection strokeCollections = new StrokeCollection(strokeCollection);
-            foreach (Stroke aStroke in strokeCollections)
-            {
-                foreach (StylusPoint s in aStroke.StylusPoints)
+            MyStrokeCollection strokeCollections = new MyStrokeCollection(strokeCollection);
+            for (int i = 0; i < strokeCollections.Count; i++) {
+                for (int j = 0; j < strokeCollections[i].StylusPoints.Count; j++)
                 {
-                    polygon.Points.Add(s.ToPoint());
+                    polygon.Points.Add(strokeCollections[i].StylusPoints[j].ToPoint());
                 }
             }
             printPolygonToCanvas(polygon, _InkCanvas);
@@ -199,7 +199,6 @@ namespace TestWPF1
                 polyline.Stroke = Brushes.Black;
                 _InkCanvas.Children.Add(polyline);
             }
-            Console.WriteLine("Mouse Up");
         }
 
         public Polygon getPolygon() {

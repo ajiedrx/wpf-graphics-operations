@@ -153,8 +153,7 @@ namespace TestWPF1
         public void replaceSelectedStroke(InkCanvas _InkCanvas) {
             StrokeCollection strokeCollection = new StrokeCollection(_InkCanvas.GetSelectedStrokes());
             printPolygon(strokeCollection, _InkCanvas);
-            foreach (Stroke aStroke in strokeCollection)
-            {
+            foreach (Stroke aStroke in strokeCollection){
                 _InkCanvas.Strokes.Remove(aStroke);
             }
         }

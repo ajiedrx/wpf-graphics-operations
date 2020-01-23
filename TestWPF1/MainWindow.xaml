@@ -4,11 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:local="clr-namespace:TestWPF1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="0,0,3.6,-1">
-        <InkCanvas x:Name="InkCanvas" x:FieldModifier="public" MouseLeftButtonDown="OnInkCanvasMouseDown" MouseUp="OnInkCanvasMouseUp" MouseMove="OnInkCanvasMouseMove" Background="Transparent" Opacity="1" EditingMode="Ink" Margin="0,0,0,10" >
+        <InkCanvas x:Name="InkCanvas" x:FieldModifier="public" MouseLeftButtonDown="OnInkCanvasMouseDown" MouseUp="OnInkCanvasMouseUp" MouseMove="OnInkCanvasMouseMove" Background="Transparent" Opacity="1" EditingMode="Ink" >
             <InkCanvas.DefaultDrawingAttributes>
                 <DrawingAttributes Color="Black" Width="2" Height="2" />
             </InkCanvas.DefaultDrawingAttributes>
@@ -19,7 +18,8 @@
         <Button x:Name="Copy" Content="Copy" Click="OnClickCopy_btn" HorizontalAlignment="Left" Height="21" Margin="256,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
         <Button x:Name="Paste" Content="Paste" Click="OnClickPaste_btn" HorizontalAlignment="Left" Height="21" Margin="329,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
         <Button x:Name="color" Content="Color" Click="OnClickColor_btn" HorizontalAlignment="Left" Height="21" Margin="403,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
-        <xctk:ColorPicker Name="cp" Margin="484,380,123,20" DisplayColorAndName="True" SelectedColorChanged="OnColorPick_cp" AvailableColorsSortingMode="HueSaturationBrightness" />
+        <xctk:ColorPicker Name="colorPicker" Margin="597,380,10,20" DisplayColorAndName="True" SelectedColorChanged="OnColorPick_cp" AvailableColorsSortingMode="HueSaturationBrightness" />
+        <Button Content="Duplicate" Name="duplicate" Click="OnClickDuplicate_btn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="480,380,0,0"/>
     </Grid>
 
 </Window>

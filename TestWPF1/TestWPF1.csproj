@@ -92,6 +92,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Color.cs" />
+    <Compile Include="MyInkCanvas.cs" />
+    <Compile Include="MyStrokeCollection.cs" />
+    <Compile Include="MyStroke.cs" />
+    <Compile Include="StateEnum.cs" />
+    <Compile Include="GraphicsOperations.cs" />
+    <Compile Include="PolygonShape.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

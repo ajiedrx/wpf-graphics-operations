@@ -16,7 +16,7 @@ namespace TestWPF1
         private string colorAttr = DEFAULT_COLOR_ATTR;
 
         public Color() { }
-        public Polygon fillPolygon(InkCanvas _InkCanvas, Polygon _polygon) {
+        public void fillPolygon(InkCanvas _InkCanvas, Polygon _polygon) {
             BrushConverter brushConverter = new BrushConverter();
             Brush brush = (Brush)brushConverter.ConvertFromString(getColorFill());
             _polygon = new Polygon()
@@ -25,18 +25,19 @@ namespace TestWPF1
                 StrokeThickness = 1,
                 Fill = brush
             };
-            return _polygon;
+            GraphicsOperations.setPolygon(_polygon);
         }
 
-        //public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker, Polygon _polygon){
-        //    if (_colorPicker.SelectedColor.HasValue)
-        //    {
-        //        setColorFill(_colorPicker.SelectedColor.ToString());
-        //        fillPolygon(_InkCanvas, _polygon);
-        //        _InkCanvas.Children.Remove(_polygon);
-        //        printPolygon(_InkCanvas.GetSelectedStrokes(), _InkCanvas);
-        //    }
-        //}
+        public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker, Polygon _polygon)
+        {
+            if (_colorPicker.SelectedColor.HasValue)
+            {
+                setColorFill(_colorPicker.SelectedColor.ToString());
+                fillPolygon(_InkCanvas, _polygon);
+                _InkCanvas.Children.Remove(_polygon);
+                //printPolygon(_InkCanvas.GetSelectedStrokes(), _InkCanvas);
+            }
+        }
         public string getColorAttr() {
             return colorAttr;
         }

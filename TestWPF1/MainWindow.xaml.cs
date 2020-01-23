@@ -64,16 +64,15 @@ namespace TestWPF1
         }
 
         private void OnClickColor_btn(object sender, RoutedEventArgs e){
-            //colorClass.fillPolygon(InkCanvas, graphicsOperations.getPolygon());
-            //graphicsOperations.replaceSelectedStroke(InkCanvas);
-            graphicsOperations.fillColor(InkCanvas);
+            colorClass.fillPolygon(InkCanvas, GraphicsOperations.getPolygon());
+            graphicsOperations.replaceSelectedStroke(InkCanvas);
         }
 
         private void OnColorPick_cp(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e) 
         {
-            //colorClass.onColorPick(InkCanvas, colorPicker, graphicsOperations.getPolygon());
-            //graphicsOperations.printPolygon(InkCanvas.GetSelectedStrokes(), InkCanvas);
-            graphicsOperations.onColorPick(InkCanvas, colorPicker);
+            MyStrokeCollection strokeCollection = new MyStrokeCollection(InkCanvas.GetSelectedStrokes());
+            colorClass.onColorPick(InkCanvas, colorPicker, GraphicsOperations.getPolygon());
+            graphicsOperations.replaceSelectedStroke(InkCanvas);
         }
 
         private void OnInkCanvasMouseUp(object sender, MouseButtonEventArgs e){

@@ -10,10 +10,9 @@ namespace TestWPF1
 {
     class GraphicsOperations
     {
-        private Polygon polygon;
+        private static Polygon polygon;
         private Polyline polyline;
         private Point point;
-        private Color color;
         private bool duplicateButtonCheck = false;
 
         #region state-setter-getter
@@ -32,7 +31,6 @@ namespace TestWPF1
         public GraphicsOperations()
         {
             setState(StateEnum.DRAW);
-            color = new Color();
         }
 
         public void getFirstMousePoint(MouseEventArgs _e, MainWindow _mainWindow) {
@@ -109,17 +107,6 @@ namespace TestWPF1
             _InkCanvas.Children.Add(tempPolygon);
         }
 
-        //public void trackMouseMove(InkCanvas _InkCanvas)
-        //{
-        //    foreach (Stroke s in _InkCanvas.Strokes)
-        //    {
-        //        foreach (StylusPoint sp in s.StylusPoints)
-        //        {
-        //            Console.WriteLine(sp.ToPoint());
-        //        }
-        //    }
-        //}
-
         public void selectState(InkCanvas _InkCanvas, InkCanvasEditingMode _InkCanvasEditingMode, string _state)
         {
             if (duplicateButtonCheck)
@@ -144,29 +131,11 @@ namespace TestWPF1
             }
         }
 
-        public void fillColor(InkCanvas _InkCanvas)
-        {
-            polygon = color.fillPolygon(_InkCanvas, polygon);
-            replaceSelectedStroke(_InkCanvas);
-        }
-
         public void replaceSelectedStroke(InkCanvas _InkCanvas) {
             MyStrokeCollection strokeCollection = new MyStrokeCollection(_InkCanvas.GetSelectedStrokes());
             printPolygon(strokeCollection, _InkCanvas);
             foreach (Stroke aStroke in strokeCollection){
                 _InkCanvas.Strokes.Remove(aStroke);
-            }
-        }
-
-        public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker)
-        {
-            if (_colorPicker.SelectedColor.HasValue)
-            {
-                color.setColorFill(_colorPicker.SelectedColor.ToString());
-                fillColor(_InkCanvas);
-                _InkCanvas.Children.Remove(polygon);
-                MyStrokeCollection strokeCollection = new MyStrokeCollection(_InkCanvas.GetSelectedStrokes());
-                printPolygon(strokeCollection, _InkCanvas);
             }
         }
 
@@ -201,8 +170,12 @@ namespace TestWPF1
             }
         }
 
-        public Polygon getPolygon() {
-            return this.polygon;
+        public static Polygon getPolygon() {
+            return polygon;
+        }
+
+        public static void setPolygon(Polygon _polygon){
+            polygon = _polygon;
         }
     }
 }

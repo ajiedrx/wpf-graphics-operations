@@ -8,14 +8,17 @@ using System.Windows.Ink;
 
 namespace TestWPF1
 {
-    class Color
+    class ColorHandler
     {
         private const string DEFAULT_COLOR_FILL = "#FFFFFF";
         private const string DEFAULT_COLOR_ATTR = "#000000";
         private string colorFill = DEFAULT_COLOR_FILL;
         private string colorAttr = DEFAULT_COLOR_ATTR;
+        private GraphicsOperations graphicsOperations;
 
-        public Color() { }
+        public ColorHandler(GraphicsOperations _graphicsOperations) {
+            this.graphicsOperations = _graphicsOperations;
+        }
         public void fillPolygon(InkCanvas _InkCanvas, Polygon _polygon) {
             BrushConverter brushConverter = new BrushConverter();
             Brush brush = (Brush)brushConverter.ConvertFromString(getColorFill());
@@ -25,7 +28,7 @@ namespace TestWPF1
                 StrokeThickness = 1,
                 Fill = brush
             };
-            GraphicsOperations.setPolygon(_polygon);
+            graphicsOperations.getCanvasObjectHandler().getPolygonShape().setPolygon(_polygon);
         }
 
         public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker, Polygon _polygon)
@@ -35,7 +38,6 @@ namespace TestWPF1
                 setColorFill(_colorPicker.SelectedColor.ToString());
                 fillPolygon(_InkCanvas, _polygon);
                 _InkCanvas.Children.Remove(_polygon);
-                //printPolygon(_InkCanvas.GetSelectedStrokes(), _InkCanvas);
             }
         }
         public string getColorAttr() {

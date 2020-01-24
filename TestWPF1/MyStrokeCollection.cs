@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace TestWPF1
 {
-    class MyStrokeCollection : StrokeCollection
+    public class MyStrokeCollection : StrokeCollection
     {
         public MyStrokeCollection()
         {

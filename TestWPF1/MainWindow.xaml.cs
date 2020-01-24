@@ -11,7 +11,9 @@ namespace TestWPF1
     public partial class MainWindow : Window
     {
         private GraphicsOperations graphicsOperations;
-        private Color colorClass;
+        private ColorHandler colorHandler;
+        private MouseHandler mouseHandler;
+        private CanvasObjectHandler canvasObjectHandler;
 
         public MainWindow()
         {
@@ -22,7 +24,10 @@ namespace TestWPF1
 
         private void initializeModule() {
             this.graphicsOperations = new GraphicsOperations();
-            this.colorClass = new Color();
+            this.canvasObjectHandler = new CanvasObjectHandler();
+            this.graphicsOperations.setCanvasObjectHandler(this.canvasObjectHandler);
+            this.colorHandler = new ColorHandler(graphicsOperations);
+            this.mouseHandler = new MouseHandler(graphicsOperations);
         }
 
         private void intializeEvents()
@@ -31,7 +36,7 @@ namespace TestWPF1
         }
 
         private void OnInkCanvasMouseDown(object sender, MouseEventArgs e){
-            graphicsOperations.getMouseDownInfo(e, this, InkCanvas);
+            mouseHandler.getMouseDownInfo(e, this, InkCanvas);
         }
 
         private void OnClickDuplicate_btn(object sender, RoutedEventArgs e){
@@ -64,19 +69,19 @@ namespace TestWPF1
         }
 
         private void OnClickColor_btn(object sender, RoutedEventArgs e){
-            colorClass.fillPolygon(InkCanvas, GraphicsOperations.getPolygon());
-            graphicsOperations.replaceSelectedStroke(InkCanvas);
+            colorHandler.fillPolygon(InkCanvas, canvasObjectHandler.getPolygonShape().getPolygon());
+            canvasObjectHandler.getPolygonShape().replaceSelectedStroke(InkCanvas);
         }
 
         private void OnColorPick_cp(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e) 
         {
             MyStrokeCollection strokeCollection = new MyStrokeCollection(InkCanvas.GetSelectedStrokes());
-            colorClass.onColorPick(InkCanvas, colorPicker, GraphicsOperations.getPolygon());
-            graphicsOperations.replaceSelectedStroke(InkCanvas);
+            colorHandler.onColorPick(InkCanvas, colorPicker, canvasObjectHandler.getPolygonShape().getPolygon());
+            canvasObjectHandler.getPolygonShape().replaceSelectedStroke(InkCanvas);
         }
 
         private void OnInkCanvasMouseUp(object sender, MouseButtonEventArgs e){
-            graphicsOperations.onMouseUp(InkCanvas, e, this);
+            graphicsOperations.getMouseUpInfo(InkCanvas, e, this);
         }
     }
 }

@@ -15,8 +15,14 @@ namespace TestWPF1
 {
     class MyInkCanvas : InkCanvas
     {
+        private UIElement uiElement;
         public MyInkCanvas()
         {
+            this.uiElement = new UIElement();
+        }
+
+        public UIElement getUIElement() {
+            return uiElement;
         }
 
         protected override bool HasEffectiveKeyboardFocus => base.HasEffectiveKeyboardFocus;

@@ -92,7 +92,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Color.cs" />
+    <Compile Include="CanvasObjectHandler.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="PolylineShape.cs" />
+    <Compile Include="MyDrawingAttributes.cs" />
+    <Compile Include="MyStylusPointCollection.cs" />
+    <Compile Include="MouseHandler.cs" />
+    <Compile Include="ColorHandler.cs" />
     <Compile Include="MyInkCanvas.cs" />
     <Compile Include="MyStrokeCollection.cs" />
     <Compile Include="MyStroke.cs" />

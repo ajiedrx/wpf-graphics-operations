@@ -8,7 +8,7 @@ using System.Windows.Ink;
 
 namespace TestWPF1
 {
-    class ColorHandler
+    public class ColorHandler
     {
         private const string DEFAULT_COLOR_FILL = "#FFFFFF";
         private const string DEFAULT_COLOR_ATTR = "#000000";
@@ -16,33 +16,35 @@ namespace TestWPF1
         private string colorAttr = DEFAULT_COLOR_ATTR;
         private GraphicsOperations graphicsOperations;
 
+        public ColorHandler() { }
         public ColorHandler(GraphicsOperations _graphicsOperations) {
             this.graphicsOperations = _graphicsOperations;
         }
-        public void fillPolygon(InkCanvas _InkCanvas, Polygon _polygon) {
+        public void fillPolygon() {
             BrushConverter brushConverter = new BrushConverter();
             Brush brush = (Brush)brushConverter.ConvertFromString(getColorFill());
-            _polygon = new Polygon()
-            {
-                Stroke = Brushes.Black,
-                StrokeThickness = 1,
-                Fill = brush
-            };
-            graphicsOperations.getCanvasObjectHandler().getPolygonShape().setPolygon(_polygon);
+            MyPolygon myPolygon = new MyPolygon();
+            myPolygon.getPolygon().Stroke = Brushes.Black; 
+            myPolygon.getPolygon().StrokeThickness = 1;
+            myPolygon.getPolygon().Fill = brush;
+            graphicsOperations.getCanvasObjectHandler().getPolygonShape().setMyPolygon(myPolygon);
         }
 
-        public void changePolygonColor() { 
-        
-        }
-
-        public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker, Polygon _polygon)
-        {
-            if (_colorPicker.SelectedColor.HasValue)
-            {
-                setColorFill(_colorPicker.SelectedColor.ToString());
-                fillPolygon(_InkCanvas, _polygon);
-                _InkCanvas.Children.Remove(_polygon);
+        public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker) {
+            if (_colorPicker.SelectedColor.HasValue) {
+                if (!GraphicsOperations.getChangeColorButtonCheck()) {
+                    setColorFill(_colorPicker.SelectedColor.ToString());
+                    fillThenReplace(_InkCanvas);
+                }
+                else{
+                    setColorFill(_colorPicker.SelectedColor.ToString());
+                }
             }
+        }
+
+        public void fillThenReplace(InkCanvas _InkCanvas) {
+            fillPolygon();
+            _InkCanvas.Children.Remove(graphicsOperations.getCanvasObjectHandler().getPolygonShape().getMyPolygon().getPolygon());
         }
         public string getColorAttr() {
             return colorAttr;

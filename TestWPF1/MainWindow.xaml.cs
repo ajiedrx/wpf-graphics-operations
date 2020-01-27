@@ -29,10 +29,10 @@ namespace TestWPF1
             this.graphicsOperations.setCanvasObjectHandler(this.canvasObjectHandler);
             this.colorHandler = new ColorHandler(graphicsOperations);
             this.mouseHandler = new MouseHandler(graphicsOperations);
+            this.canvasObjectHandler.getPolygonShape().setColorHandler(colorHandler);
         }
 
-        private void intializeEvents()
-        {
+        private void intializeEvents(){
             InkCanvas.AddHandler(InkCanvas.MouseDownEvent, new MouseButtonEventHandler(OnInkCanvasMouseDown), true);
         }
 
@@ -65,16 +65,19 @@ namespace TestWPF1
         }
 
         private void OnClickColor_btn(object sender, RoutedEventArgs e){
-            colorHandler.fillPolygon(InkCanvas, canvasObjectHandler.getPolygonShape().getPolygon());
+            colorHandler.fillPolygon();
             canvasObjectHandler.getPolygonShape().replaceSelectedStroke(InkCanvas);
         }
 
         private void OnColorPick_cp(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e) 
         {
-            if (!(bool)changeColor_btn.IsChecked) {
-                MyStrokeCollection strokeCollection = new MyStrokeCollection(InkCanvas.GetSelectedStrokes());
-                colorHandler.onColorPick(InkCanvas, colorPicker, canvasObjectHandler.getPolygonShape().getPolygon());
+            if (!GraphicsOperations.getChangeColorButtonCheck())
+            {
+                colorHandler.onColorPick(InkCanvas, colorPicker);
                 canvasObjectHandler.getPolygonShape().replaceSelectedStroke(InkCanvas);
+            }
+            else {
+                colorHandler.onColorPick(InkCanvas, colorPicker);
             }
         }
 
@@ -83,16 +86,11 @@ namespace TestWPF1
         }
 
         private void onClickChangeColor_btn(object sender, RoutedEventArgs e){
-            colorHandler.changePolygonColor();
+            graphicsOperations.toggleChangeColorButton();
         }
 
         public ToggleButton getChangeColorButton() {
             return changeColor_btn;
-        }
-
-        private void changeColor_btn_Checked(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

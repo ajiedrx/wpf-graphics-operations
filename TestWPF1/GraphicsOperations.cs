@@ -8,7 +8,7 @@ using System.Windows.Ink;
 
 namespace TestWPF1
 {
-    class GraphicsOperations
+    public class GraphicsOperations
     {
         private CanvasObjectHandler canvasObjectHandler;
         private static bool duplicateButtonCheck = false;
@@ -78,6 +78,9 @@ namespace TestWPF1
 
         public static bool getDuplicateButtonCheck() {
             return duplicateButtonCheck;
+        }
+        public static bool getChangeColorButtonCheck() {
+            return changeColorButtonCheck;
         }
     }
 }

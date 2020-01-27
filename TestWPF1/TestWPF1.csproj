@@ -93,6 +93,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CanvasObjectHandler.cs" />
+    <Compile Include="MyPolyline.cs" />
+    <Compile Include="MyPolygon.cs" />
     <Compile Include="PolylineShape.cs" />
     <Compile Include="MyDrawingAttributes.cs" />
     <Compile Include="MyStylusPointCollection.cs" />

@@ -1,9 +1,10 @@
-﻿<Window x:Class="TestWPF1.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:TestWPF1" x:Class="TestWPF1.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="0,0,3.6,-1">
@@ -18,9 +19,10 @@
         <Button x:Name="Copy" Content="Copy" Click="OnClickCopy_btn" HorizontalAlignment="Left" Height="21" Margin="212,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
         <Button x:Name="Paste" Content="Paste" Click="OnClickPaste_btn" HorizontalAlignment="Left" Height="21" Margin="275,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
         <Button x:Name="color" Content="Color" Click="OnClickColor_btn" HorizontalAlignment="Left" Height="21" Margin="338,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
-        <xctk:ColorPicker Name="colorPicker" Margin="597,380,10,20" DisplayColorAndName="True" SelectedColorChanged="OnColorPick_cp" AvailableColorsSortingMode="HueSaturationBrightness" />
-        <ToggleButton Content="Duplicate" Name="duplicate_btn" Click="OnClickDuplicate_btn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="401,380,0,0" Height="21"/>
-        <ToggleButton Content="C.Color" Name="changeColor_btn" HorizontalAlignment="Left" Margin="481,380,0,0" VerticalAlignment="Top" Width="75" Height="21" Checked="onClickChangeColor_btn"/>
+        <xctk:ColorPicker x:Name="colorPicker" Margin="597,380,10,20" DisplayColorAndName="True" SelectedColorChanged="OnColorPick_cp" AvailableColorsSortingMode="HueSaturationBrightness" />
+        <ToggleButton Content="Duplicate" x:Name="duplicate_btn" Click="OnClickDuplicate_btn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="401,380,0,0" Height="21"/>
+        <ToggleButton Content="C.Color" x:Name="changeColor_btn" HorizontalAlignment="Left" Margin="481,380,0,0" VerticalAlignment="Top" Width="75" Height="21" Checked="onClickChangeColor_btn"/>
+        <local:MyInkCanvas HorizontalAlignment="Left" Height="0" Margin="983,434,-200,-13" VerticalAlignment="Top" Width="7"/>
     </Grid>
 
 </Window>

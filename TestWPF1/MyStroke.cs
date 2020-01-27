@@ -11,12 +11,12 @@ namespace TestWPF1
 {
     class MyStroke : Stroke
     {
-        public MyStroke(StylusPointCollection stylusPoints) : base(stylusPoints)
+        public MyStroke(MyStylusPointCollection stylusPoints) : base(stylusPoints)
         {
 
         }
 
-        public MyStroke(StylusPointCollection stylusPoints, DrawingAttributes drawingAttributes) : base(stylusPoints, drawingAttributes)
+        public MyStroke(MyStylusPointCollection stylusPoints, MyDrawingAttributes drawingAttributes) : base(stylusPoints, drawingAttributes)
         {
 
         }

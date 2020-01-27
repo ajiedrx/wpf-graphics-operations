@@ -31,6 +31,10 @@ namespace TestWPF1
             graphicsOperations.getCanvasObjectHandler().getPolygonShape().setPolygon(_polygon);
         }
 
+        public void changePolygonColor() { 
+        
+        }
+
         public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker, Polygon _polygon)
         {
             if (_colorPicker.SelectedColor.HasValue)

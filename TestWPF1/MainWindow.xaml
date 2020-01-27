@@ -7,19 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="0,0,3.6,-1">
-        <InkCanvas x:Name="InkCanvas" x:FieldModifier="public" MouseLeftButtonDown="OnInkCanvasMouseDown" MouseUp="OnInkCanvasMouseUp" MouseMove="OnInkCanvasMouseMove" Background="Transparent" Opacity="1" EditingMode="Ink" >
+        <InkCanvas x:Name="InkCanvas" x:FieldModifier="public" MouseLeftButtonDown="OnInkCanvasMouseDown" MouseUp="OnInkCanvasMouseUp" Background="Transparent" Opacity="1" EditingMode="Ink" >
             <InkCanvas.DefaultDrawingAttributes>
                 <DrawingAttributes Color="Black" Width="2" Height="2" />
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
         <Button x:Name="Draw" Content="Draw" HorizontalAlignment="Left"  Click="OnClickDraw_btn"  Height="21" Margin="23,380,0,-6" VerticalAlignment="Top" Width="58" />
-        <Button x:Name="DrawLine" Content="Drawline" Click="OnClickDrawLine_btn" HorizontalAlignment="Left" Height="21" Margin="99,380,0,0" VerticalAlignment="Top" Width="58"/>
-        <Button x:Name="Select" Content="Select" Click="OnClickSelect_btn" HorizontalAlignment="Left" Height="21" Margin="176,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
-        <Button x:Name="Copy" Content="Copy" Click="OnClickCopy_btn" HorizontalAlignment="Left" Height="21" Margin="256,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
-        <Button x:Name="Paste" Content="Paste" Click="OnClickPaste_btn" HorizontalAlignment="Left" Height="21" Margin="329,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
-        <Button x:Name="color" Content="Color" Click="OnClickColor_btn" HorizontalAlignment="Left" Height="21" Margin="403,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
+        <Button x:Name="DrawLine" Content="Drawline" Click="OnClickDrawLine_btn" HorizontalAlignment="Left" Height="21" Margin="86,380,0,0" VerticalAlignment="Top" Width="58"/>
+        <Button x:Name="Select" Content="Select" Click="OnClickSelect_btn" HorizontalAlignment="Left" Height="21" Margin="149,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
+        <Button x:Name="Copy" Content="Copy" Click="OnClickCopy_btn" HorizontalAlignment="Left" Height="21" Margin="212,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
+        <Button x:Name="Paste" Content="Paste" Click="OnClickPaste_btn" HorizontalAlignment="Left" Height="21" Margin="275,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
+        <Button x:Name="color" Content="Color" Click="OnClickColor_btn" HorizontalAlignment="Left" Height="21" Margin="338,380,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="1.39,0.562"/>
         <xctk:ColorPicker Name="colorPicker" Margin="597,380,10,20" DisplayColorAndName="True" SelectedColorChanged="OnColorPick_cp" AvailableColorsSortingMode="HueSaturationBrightness" />
-        <Button Content="Duplicate" Name="duplicate" Click="OnClickDuplicate_btn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="480,380,0,0"/>
+        <ToggleButton Content="Duplicate" Name="duplicate_btn" Click="OnClickDuplicate_btn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="401,380,0,0" Height="21"/>
+        <ToggleButton Content="C.Color" Name="changeColor_btn" HorizontalAlignment="Left" Margin="481,380,0,0" VerticalAlignment="Top" Width="75" Height="21" Checked="onClickChangeColor_btn"/>
     </Grid>
 
 </Window>

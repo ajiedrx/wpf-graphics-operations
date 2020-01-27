@@ -28,12 +28,10 @@ namespace TestWPF1
         public void getMouseDownInfo(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas)
         {
             getFirstMousePoint(_e, _mainWindow);
-            if (_e.OriginalSource is Polyline && GraphicsOperations.getDuplicateButtonCheck())
-            {
+            if (_e.OriginalSource is Polyline && GraphicsOperations.getDuplicateButtonCheck()){
                 graphicsOperations.getCanvasObjectHandler().getPolylineShape().duplicateLine(_e, _InkCanvas);
             }
-            else if (_e.OriginalSource is Polygon && GraphicsOperations.getDuplicateButtonCheck())
-            {
+            else if (_e.OriginalSource is Polygon && GraphicsOperations.getDuplicateButtonCheck()){
                 graphicsOperations.getCanvasObjectHandler().getPolygonShape().duplicatePolygon(_e, _InkCanvas);
             }
         }

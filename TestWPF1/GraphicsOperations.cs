@@ -10,9 +10,9 @@ namespace TestWPF1
 {
     class GraphicsOperations
     {
-        //private static Polygon polygon;
         private CanvasObjectHandler canvasObjectHandler;
         private static bool duplicateButtonCheck = false;
+        private static bool changeColorButtonCheck = false;
 
         #region state-setter-getter
 
@@ -27,28 +27,27 @@ namespace TestWPF1
         }
         #endregion
 
-        public GraphicsOperations()
-        {
+        public GraphicsOperations(){
             setState(StateEnum.DRAW);
         }
 
-        public void setCanvasObjectHandler(CanvasObjectHandler _canvasObjectHandler)
-        {
+        public void setCanvasObjectHandler(CanvasObjectHandler _canvasObjectHandler){
             canvasObjectHandler = _canvasObjectHandler;
         }
 
-        public CanvasObjectHandler getCanvasObjectHandler()
-        {
+        public CanvasObjectHandler getCanvasObjectHandler(){
             return canvasObjectHandler;
         }
 
-        public void toggleDuplicateButton()
-        {
+        public void toggleDuplicateButton(){
             duplicateButtonCheck = !duplicateButtonCheck;
         }
 
-        public void selectState(InkCanvas _InkCanvas, InkCanvasEditingMode _InkCanvasEditingMode, string _state)
-        {
+        public void toggleChangeColorButton(){
+            changeColorButtonCheck = !changeColorButtonCheck;
+        }
+
+        public void selectState(InkCanvas _InkCanvas, InkCanvasEditingMode _InkCanvasEditingMode, string _state){
             if (duplicateButtonCheck){
                 duplicateButtonCheck = false;
             }
@@ -56,13 +55,11 @@ namespace TestWPF1
             setState(_state);
         }
 
-        public void copySelection(InkCanvas _InkCanvas)
-        {
+        public void copySelection(InkCanvas _InkCanvas){
             _InkCanvas.CopySelection();
         }
 
-        public void pasteFromClipboard(InkCanvas _InkCanvas)
-        {
+        public void pasteFromClipboard(InkCanvas _InkCanvas){
             if (_InkCanvas.CanPaste())
             {
                 _InkCanvas.Paste(
@@ -70,8 +67,7 @@ namespace TestWPF1
             }
         }
 
-        public void getMouseUpInfo(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow)
-        {
+        public void getMouseUpInfo(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow){
             if (getState() == StateEnum.DRAW_LINE)
             {
                 Point firstPoint = new Point(MouseHandler.getPoint().X, MouseHandler.getPoint().Y);

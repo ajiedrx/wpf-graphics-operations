@@ -11,7 +11,7 @@ namespace TestWPF1
     public class PolygonShape
     {
         private Polygon polygon;
-        private String colorFill;
+        private string colorFill;
         public PolygonShape() {
            
         }
@@ -31,8 +31,9 @@ namespace TestWPF1
             MyStroke newStroke = new MyStroke(points, drawingAttribute);
             _InkCanvas.Strokes.Add(newStroke);
             Polygon tempPolygon = originalPolygon;
-            originalPolygon = new Polygon();
-            originalPolygon.Stroke = Brushes.Black;
+            originalPolygon = new Polygon() {
+                Stroke = Brushes.Black
+            };
             foreach (StylusPoint aStylusPoint in newStroke.StylusPoints)
             {
                 originalPolygon.Points.Add(aStylusPoint.ToPoint());

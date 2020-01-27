@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Ink;
+using System.Windows.Controls.Primitives;
 
 namespace TestWPF1
 {
@@ -43,11 +44,6 @@ namespace TestWPF1
             graphicsOperations.toggleDuplicateButton();
         }
 
-        private void OnInkCanvasMouseMove(object sender, MouseEventArgs e)
-        {
-            //graphicsOperations.trackMouseMove(InkCanvas);
-        }
-
         private void OnClickDrawLine_btn(object sender, RoutedEventArgs e){
             graphicsOperations.selectState(InkCanvas, InkCanvasEditingMode.GestureOnly, StateEnum.DRAW_LINE);
         }
@@ -75,13 +71,28 @@ namespace TestWPF1
 
         private void OnColorPick_cp(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e) 
         {
-            MyStrokeCollection strokeCollection = new MyStrokeCollection(InkCanvas.GetSelectedStrokes());
-            colorHandler.onColorPick(InkCanvas, colorPicker, canvasObjectHandler.getPolygonShape().getPolygon());
-            canvasObjectHandler.getPolygonShape().replaceSelectedStroke(InkCanvas);
+            if (!(bool)changeColor_btn.IsChecked) {
+                MyStrokeCollection strokeCollection = new MyStrokeCollection(InkCanvas.GetSelectedStrokes());
+                colorHandler.onColorPick(InkCanvas, colorPicker, canvasObjectHandler.getPolygonShape().getPolygon());
+                canvasObjectHandler.getPolygonShape().replaceSelectedStroke(InkCanvas);
+            }
         }
 
         private void OnInkCanvasMouseUp(object sender, MouseButtonEventArgs e){
             graphicsOperations.getMouseUpInfo(InkCanvas, e, this);
+        }
+
+        private void onClickChangeColor_btn(object sender, RoutedEventArgs e){
+            colorHandler.changePolygonColor();
+        }
+
+        public ToggleButton getChangeColorButton() {
+            return changeColor_btn;
+        }
+
+        private void changeColor_btn_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

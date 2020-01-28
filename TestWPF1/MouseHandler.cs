@@ -6,41 +6,37 @@ using System.Windows.Shapes;
 
 namespace TestWPF1
 {
-    class MouseHandler
+    public class MouseHandler : IMouseHandler
     {
         private readonly string POLYGON = "System.Windows.Shapes.Polygon";
         private readonly string POLYLINE = "System.Windows.Shapes.Polyline";
-        GraphicsOperations graphicsOperations;
-        private static Point point;
+        ICanvasObjectHandler canvasObjectHandler;
+        private Point point;
 
-        public MouseHandler(GraphicsOperations _graphicsOperations) {
-            this.graphicsOperations = _graphicsOperations;            
+        public MouseHandler(ICanvasObjectHandler _canvasObjectHandler) {
+            this.canvasObjectHandler = _canvasObjectHandler;      
         }
-        public static void setPoint(Point _point)
-        {
+        public void setPoint(Point _point) {
             point = _point;
         }
-        public static Point getPoint()
-        {
+        public Point getPoint() {
             return point;
         }
-        public void getFirstMousePoint(MouseEventArgs _e, MainWindow _mainWindow)
-        {
+        public void getFirstMousePoint(MouseEventArgs _e, MainWindow _mainWindow) {
             setPoint(_e.GetPosition(_mainWindow));
         }
-        public void getMouseDownInfo(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas)
-        {
+        public void getMouseDownInfo(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas) {
             getFirstMousePoint(_e, _mainWindow);
             Console.WriteLine(_e.OriginalSource.ToString());
             if (_e.OriginalSource.ToString().Equals(POLYLINE) && GraphicsOperations.getDuplicateButtonCheck()){
-                graphicsOperations.getCanvasObjectHandler().getPolylineShape().duplicateLine(_e, _InkCanvas);
+                canvasObjectHandler.getPolylineShape().duplicateLine(_e, _InkCanvas);
             }
             else if (_e.OriginalSource.ToString().Equals(POLYGON) && GraphicsOperations.getDuplicateButtonCheck()){
-                graphicsOperations.getCanvasObjectHandler().getPolygonShape().duplicatePolygon(_e, _InkCanvas);
+                canvasObjectHandler.getPolygonShape().duplicatePolygon(_e, _InkCanvas);
             }
             else if (_e.OriginalSource.ToString().Equals(POLYGON) && GraphicsOperations.getChangeColorButtonCheck())
             {
-                graphicsOperations.getCanvasObjectHandler().getPolygonShape().changePolygonColor(_e, _InkCanvas);
+                canvasObjectHandler.getPolygonShape().changePolygonColor(_e, _InkCanvas);
             }
         }
     }

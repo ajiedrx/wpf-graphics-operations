@@ -22,5 +22,9 @@ namespace TestWPF1
         public Polygon getPolygon() {
             return this.polygon;
         }
+
+        public MyPolygon createPolygon() {
+            return new MyPolygon();
+        }
     }
 }

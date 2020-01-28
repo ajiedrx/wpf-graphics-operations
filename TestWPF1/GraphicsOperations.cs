@@ -8,9 +8,11 @@ using System.Windows.Ink;
 
 namespace TestWPF1
 {
-    public class GraphicsOperations
+    public class GraphicsOperations : IGraphicsOperations
     {
-        private CanvasObjectHandler canvasObjectHandler;
+        private IColorHandler colorHandler;
+        private IMouseHandler mouseHandler;
+        private ICanvasObjectHandler canvasObjectHandler;
         private static bool duplicateButtonCheck = false;
         private static bool changeColorButtonCheck = false;
 
@@ -29,14 +31,20 @@ namespace TestWPF1
 
         public GraphicsOperations(){
             setState(StateEnum.DRAW);
+            initializeModule();
         }
 
-        public void setCanvasObjectHandler(CanvasObjectHandler _canvasObjectHandler){
+        private void initializeModule()
+        {
+            this.canvasObjectHandler = new CanvasObjectHandler();
+            setCanvasObjectHandler(canvasObjectHandler);
+            this.colorHandler = new ColorHandler(canvasObjectHandler);
+            this.canvasObjectHandler.getPolygonShape().setColorHandler(colorHandler);
+            this.mouseHandler = new MouseHandler(canvasObjectHandler);
+        }
+
+        public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler){
             canvasObjectHandler = _canvasObjectHandler;
-        }
-
-        public CanvasObjectHandler getCanvasObjectHandler(){
-            return canvasObjectHandler;
         }
 
         public void toggleDuplicateButton(){
@@ -67,10 +75,18 @@ namespace TestWPF1
             }
         }
 
+        public void onColorPick_cp(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker) {
+            colorHandler.checkOnColorPick(_InkCanvas, _colorPicker);
+        }
+
+        public void onInkCanvasMouseDown(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas) {
+            mouseHandler.getMouseDownInfo(_e, _mainWindow, _InkCanvas);
+        }
+
         public void getMouseUpInfo(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow){
             if (getState() == StateEnum.DRAW_LINE)
             {
-                Point firstPoint = new Point(MouseHandler.getPoint().X, MouseHandler.getPoint().Y);
+                Point firstPoint = new Point(mouseHandler.getPoint().X, mouseHandler.getPoint().Y);
                 Point endPoint = _e.GetPosition(_mainWindow);
                 canvasObjectHandler.getPolylineShape().printPolyline(_InkCanvas, firstPoint, endPoint);
             }

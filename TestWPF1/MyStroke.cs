@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace TestWPF1
 {
-    class MyStroke : Stroke
+    public class MyStroke : Stroke
     {
         public MyStroke(MyStylusPointCollection stylusPoints) : base(stylusPoints)
         {

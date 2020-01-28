@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>TestWPF1.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
@@ -93,6 +96,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CanvasObjectHandler.cs" />
+    <Compile Include="GraphicsOperationsInjector.cs" />
+    <Compile Include="ICanvasObjectHandler.cs" />
+    <Compile Include="IColorHandler.cs" />
+    <Compile Include="IGraphicsOperations.cs" />
+    <Compile Include="IMouseHandler.cs" />
+    <Compile Include="IShape.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="MyBrushConverter.cs" />
     <Compile Include="MyPolyline.cs" />
     <Compile Include="MyPolygon.cs" />
     <Compile Include="PolylineShape.cs" />

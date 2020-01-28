@@ -8,7 +8,7 @@ using System.Windows.Ink;
 
 namespace TestWPF1
 {
-    class MyDrawingAttributes : DrawingAttributes
+    public class MyDrawingAttributes : DrawingAttributes
     {
         public MyDrawingAttributes()
         {

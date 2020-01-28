@@ -8,17 +8,17 @@ using System.Windows.Ink;
 
 namespace TestWPF1
 {
-    public class ColorHandler
+    public class ColorHandler : IColorHandler
     {
         private const string DEFAULT_COLOR_FILL = "#FFFFFF";
         private const string DEFAULT_COLOR_ATTR = "#000000";
         private string colorFill = DEFAULT_COLOR_FILL;
         private string colorAttr = DEFAULT_COLOR_ATTR;
-        private GraphicsOperations graphicsOperations;
+        private ICanvasObjectHandler canvasObjectHandler;
 
         public ColorHandler() { }
-        public ColorHandler(GraphicsOperations _graphicsOperations) {
-            this.graphicsOperations = _graphicsOperations;
+        public ColorHandler(ICanvasObjectHandler _canvasObjectHandler) {
+            this.canvasObjectHandler = _canvasObjectHandler;
         }
         public void fillPolygon() {
             BrushConverter brushConverter = new BrushConverter();
@@ -27,7 +27,17 @@ namespace TestWPF1
             myPolygon.getPolygon().Stroke = Brushes.Black; 
             myPolygon.getPolygon().StrokeThickness = 1;
             myPolygon.getPolygon().Fill = brush;
-            graphicsOperations.getCanvasObjectHandler().getPolygonShape().setMyPolygon(myPolygon);
+            canvasObjectHandler.getPolygonShape().setMyPolygon(myPolygon);
+        }
+
+        public void checkOnColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker) {
+            if (!GraphicsOperations.getChangeColorButtonCheck()) {
+                onColorPick(_InkCanvas, _colorPicker);
+                canvasObjectHandler.getPolygonShape().replaceSelectedStroke(_InkCanvas);
+            }
+            else {
+                onColorPick(_InkCanvas, _colorPicker);
+            }
         }
 
         public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker) {
@@ -44,7 +54,7 @@ namespace TestWPF1
 
         public void fillThenReplace(InkCanvas _InkCanvas) {
             fillPolygon();
-            _InkCanvas.Children.Remove(graphicsOperations.getCanvasObjectHandler().getPolygonShape().getMyPolygon().getPolygon());
+            _InkCanvas.Children.Remove(canvasObjectHandler.getPolygonShape().getMyPolygon().getPolygon());
         }
         public string getColorAttr() {
             return colorAttr;

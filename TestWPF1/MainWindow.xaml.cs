@@ -11,33 +11,23 @@ namespace TestWPF1
 {
     public partial class MainWindow : Window
     {
-        private GraphicsOperations graphicsOperations;
-        private ColorHandler colorHandler;
-        private MouseHandler mouseHandler;
-        private CanvasObjectHandler canvasObjectHandler;
-
-        public MainWindow()
-        {
+        private IGraphicsOperations graphicsOperations;
+        public MainWindow() {
             InitializeComponent();
             intializeEvents();
-            initializeModule();
+            setGraphicsOperations(new GraphicsOperations());
         }
 
-        private void initializeModule() {
-            this.graphicsOperations = new GraphicsOperations();
-            this.canvasObjectHandler = new CanvasObjectHandler();
-            this.graphicsOperations.setCanvasObjectHandler(this.canvasObjectHandler);
-            this.colorHandler = new ColorHandler(graphicsOperations);
-            this.mouseHandler = new MouseHandler(graphicsOperations);
-            this.canvasObjectHandler.getPolygonShape().setColorHandler(colorHandler);
+        public void setGraphicsOperations(GraphicsOperations _graphicsOperations) {
+            this.graphicsOperations = _graphicsOperations;
         }
 
-        private void intializeEvents(){
+        public void intializeEvents(){
             InkCanvas.AddHandler(InkCanvas.MouseDownEvent, new MouseButtonEventHandler(OnInkCanvasMouseDown), true);
         }
 
         private void OnInkCanvasMouseDown(object sender, MouseEventArgs e){
-            mouseHandler.getMouseDownInfo(e, this, InkCanvas);
+            graphicsOperations.onInkCanvasMouseDown(e, this, InkCanvas);
         }
 
         private void OnClickDuplicate_btn(object sender, RoutedEventArgs e){
@@ -64,21 +54,9 @@ namespace TestWPF1
             graphicsOperations.copySelection(InkCanvas);
         }
 
-        private void OnClickColor_btn(object sender, RoutedEventArgs e){
-            colorHandler.fillPolygon();
-            canvasObjectHandler.getPolygonShape().replaceSelectedStroke(InkCanvas);
-        }
-
         private void OnColorPick_cp(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e) 
         {
-            if (!GraphicsOperations.getChangeColorButtonCheck())
-            {
-                colorHandler.onColorPick(InkCanvas, colorPicker);
-                canvasObjectHandler.getPolygonShape().replaceSelectedStroke(InkCanvas);
-            }
-            else {
-                colorHandler.onColorPick(InkCanvas, colorPicker);
-            }
+            graphicsOperations.onColorPick_cp(InkCanvas, colorPicker);
         }
 
         private void OnInkCanvasMouseUp(object sender, MouseButtonEventArgs e){

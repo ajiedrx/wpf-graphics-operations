@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 
 namespace TestWPF1
 {
-    public class CanvasObjectHandler
+    public class CanvasObjectHandler : ICanvasObjectHandler
     {
         private PolylineShape polylineShape;
         private PolygonShape polygonShape;
@@ -20,8 +20,7 @@ namespace TestWPF1
             return this.polylineShape;
         }
 
-        public PolygonShape getPolygonShape()
-        {
+        public PolygonShape getPolygonShape() {
             return this.polygonShape;
         }
     }

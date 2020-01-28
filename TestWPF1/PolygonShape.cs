@@ -11,74 +11,58 @@ namespace TestWPF1
     public class PolygonShape
     {
         private MyPolygon myPolygon;
-        private ColorHandler colorHandler;
-        public PolygonShape() {
-
-        }
+        private IColorHandler colorHandler;
+        public PolygonShape() { }
 
         public void duplicatePolygon(MouseEventArgs _obj, InkCanvas _InkCanvas) {
             MyPolygon originalPolygon = new MyPolygon();
             originalPolygon.setPolygon((Polygon)_obj.OriginalSource);
-            MyDrawingAttributes drawingAttribute = new MyDrawingAttributes()
-            {
+            replicatePolygon(_obj, _InkCanvas, originalPolygon.getPolygon().Fill.ToString());
+        }
+
+        public void changePolygonColor(MouseEventArgs _obj, InkCanvas _InkCanvas)
+        {
+            _InkCanvas.Children.Remove((Polygon)_obj.OriginalSource);
+            replicatePolygon(_obj, _InkCanvas, colorHandler.getColorFill());
+        }
+
+        public void replicatePolygon(MouseEventArgs _obj, InkCanvas _InkCanvas, string _color) {
+            MyPolygon originalPolygon = new MyPolygon();
+            originalPolygon.setPolygon((Polygon)_obj.OriginalSource);
+            MyDrawingAttributes drawingAttribute = new MyDrawingAttributes() {
                 Color = Colors.Black
             };
+            MyStroke newStroke = new MyStroke(createMyStylusPointCollection(originalPolygon), drawingAttribute);
+            _InkCanvas.Strokes.Add(newStroke);
+            originalPolygon = createNewPolygonFromStroke(newStroke, _color);
+            _InkCanvas.Strokes.Remove(newStroke);
+            _InkCanvas.Children.Add(originalPolygon.getPolygon());
+        }
+
+        public MyStylusPointCollection createMyStylusPointCollection(MyPolygon _originalPolygon) {
             MyStylusPointCollection points = new MyStylusPointCollection();
-            foreach (Point aPoint in originalPolygon.getPolygon().Points)
+            foreach (Point aPoint in _originalPolygon.getPolygon().Points)
             {
                 points.Add(new StylusPoint(aPoint.X, aPoint.Y));
             }
-            MyStroke newStroke = new MyStroke(points, drawingAttribute);
-            _InkCanvas.Strokes.Add(newStroke);
-            MyPolygon tempPolygon = originalPolygon;
-            originalPolygon = new MyPolygon();
-            originalPolygon.getPolygon().Stroke = Brushes.Black;
-             
-            foreach (StylusPoint aStylusPoint in newStroke.StylusPoints)
-            {
-                originalPolygon.getPolygon().Points.Add(aStylusPoint.ToPoint());
+            return points;
+        }
+
+        public MyPolygon createNewPolygonFromStroke(MyStroke _newStroke, string _color) {
+            MyPolygon _originalPolygon = new MyPolygon();
+            _originalPolygon.getPolygon().Stroke = Brushes.Black;
+            foreach (StylusPoint aStylusPoint in _newStroke.StylusPoints) {
+                _originalPolygon.getPolygon().Points.Add(aStylusPoint.ToPoint());
             }
-            BrushConverter brushConverter = new BrushConverter();
-            Brush brush = (Brush)brushConverter.ConvertFromString(tempPolygon.getPolygon().Fill.ToString());
-            originalPolygon.getPolygon().Fill = brush;
-            _InkCanvas.Strokes.Remove(newStroke);
-            _InkCanvas.Children.Add(originalPolygon.getPolygon());
+            MyBrushConverter myBrushConverter = new MyBrushConverter();
+            _originalPolygon.getPolygon().Fill = myBrushConverter.getConvertedBrush(_color);
+            return _originalPolygon;
         }
 
         public void replaceSelectedStroke(InkCanvas _InkCanvas) {
             MyStrokeCollection strokeCollection = new MyStrokeCollection(_InkCanvas.GetSelectedStrokes());
             printPolygon(strokeCollection, _InkCanvas);
-            foreach (Stroke aStroke in strokeCollection)
-            {
-                _InkCanvas.Strokes.Remove(aStroke);
-            }
-        }
-
-        public void changePolygonColor(MouseEventArgs _obj, InkCanvas _InkCanvas) {
-            MyPolygon originalPolygon = new MyPolygon();
-            originalPolygon.setPolygon((Polygon)_obj.OriginalSource);
-            _InkCanvas.Children.Remove(originalPolygon.getPolygon());
-            MyDrawingAttributes drawingAttribute = new MyDrawingAttributes() {
-                Color = Colors.Black
-            };
-            MyStylusPointCollection points = new MyStylusPointCollection();
-            foreach (Point aPoint in originalPolygon.getPolygon().Points)
-            {
-                points.Add(new StylusPoint(aPoint.X, aPoint.Y));
-            }
-            MyStroke newStroke = new MyStroke(points, drawingAttribute);
-            _InkCanvas.Strokes.Add(newStroke);
-            originalPolygon = new MyPolygon();
-            originalPolygon.getPolygon().Stroke = Brushes.Black;
-            foreach (StylusPoint aStylusPoint in newStroke.StylusPoints)
-            {
-                originalPolygon.getPolygon().Points.Add(aStylusPoint.ToPoint());
-            }
-            BrushConverter brushConverter = new BrushConverter();
-            Brush brush = (Brush)brushConverter.ConvertFromString(colorHandler.getColorFill());
-            originalPolygon.getPolygon().Fill = brush;
-            _InkCanvas.Strokes.Remove(newStroke);
-            _InkCanvas.Children.Add(originalPolygon.getPolygon());
+            _InkCanvas.Strokes.Remove(_InkCanvas.GetSelectedStrokes());
         }
 
         public void printPolygon(MyStrokeCollection _strokeCollection, InkCanvas _InkCanvas) {
@@ -99,7 +83,7 @@ namespace TestWPF1
             return myPolygon;
         }
 
-        public void setColorHandler(ColorHandler _colorHandler) {
+        public void setColorHandler(IColorHandler _colorHandler) {
             this.colorHandler = _colorHandler;
         }
     }

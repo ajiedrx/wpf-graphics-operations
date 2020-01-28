@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 
 namespace TestWPF1
 {
-    class MyPolyline
+    public class MyPolyline
     {
         private Polyline polyline;
         public static Polyline thisIsPolyline;

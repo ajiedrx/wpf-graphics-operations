@@ -13,7 +13,7 @@ using System.Windows.Media;
 
 namespace TestWPF1
 {
-    class MyInkCanvas : InkCanvas
+    public class MyInkCanvas : InkCanvas
     {
         private UIElement uiElement;
         public MyInkCanvas()

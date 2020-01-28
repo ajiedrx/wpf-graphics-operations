@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace TestWPF1
 {
-    class MyStylusPointCollection : StylusPointCollection
+    public class MyStylusPointCollection : StylusPointCollection
     {
         public MyStylusPointCollection()
         {

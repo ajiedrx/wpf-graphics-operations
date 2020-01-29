@@ -8,7 +8,7 @@ using System.Windows.Ink;
 
 namespace TestWPF1
 {
-    public class PolygonShape
+    public class PolygonShape : IPolygonShape
     {
         private MyPolygon myPolygon;
         private IColorHandler colorHandler;
@@ -50,7 +50,7 @@ namespace TestWPF1
 
         public MyPolygon createNewPolygonFromStroke(MyStroke _newStroke, string _color) {
             MyPolygon _originalPolygon = new MyPolygon();
-            _originalPolygon.getPolygon().Stroke = Brushes.Black;
+            _originalPolygon.getPolygon().Stroke = MyBrushes.Black;
             foreach (StylusPoint aStylusPoint in _newStroke.StylusPoints) {
                 _originalPolygon.getPolygon().Points.Add(aStylusPoint.ToPoint());
             }

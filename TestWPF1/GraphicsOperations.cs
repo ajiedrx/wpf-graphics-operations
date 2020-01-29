@@ -2,9 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Windows.Ink;
 
 namespace TestWPF1
 {
@@ -36,15 +33,31 @@ namespace TestWPF1
 
         private void initializeModule()
         {
-            this.canvasObjectHandler = new CanvasObjectHandler();
+            canvasObjectHandler = new CanvasObjectHandler();
+            initializeCanvasObjectHandler();
             setCanvasObjectHandler(canvasObjectHandler);
-            this.colorHandler = new ColorHandler(canvasObjectHandler);
-            this.canvasObjectHandler.getPolygonShape().setColorHandler(colorHandler);
-            this.mouseHandler = new MouseHandler(canvasObjectHandler);
+            colorHandler = new ColorHandler(canvasObjectHandler);
+            canvasObjectHandler.getPolygonShape().setColorHandler(colorHandler);
+            mouseHandler = new MouseHandler(canvasObjectHandler);
         }
 
         public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler){
             canvasObjectHandler = _canvasObjectHandler;
+        }
+
+        public void initializeCanvasObjectHandler() {
+            this.canvasObjectHandler.setPolygonShape(new PolygonShape());
+            this.canvasObjectHandler.setPolylineShape(new PolylineShape());
+        }
+
+        public void setMouseHandler(IMouseHandler _mouseHandler)
+        {
+            mouseHandler = _mouseHandler;
+        }
+
+        public void setColorHandler(IColorHandler _colorHandler)
+        {
+            colorHandler = _colorHandler;
         }
 
         public void toggleDuplicateButton(){

@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 
 namespace TestWPF1
 {
-    public class PolylineShape
+    public class PolylineShape : IPolylineShape
     {
         public void duplicateLine(MouseEventArgs _obj, InkCanvas _InkCanvas){
             MyPolyline originalPolyline = new MyPolyline();
@@ -25,7 +25,7 @@ namespace TestWPF1
         public MyPolyline createNewPolylineFromStroke(MyStroke _newStroke)
         {
             MyPolyline _originalPolyline = new MyPolyline();
-            _originalPolyline.getPolyline().Stroke = Brushes.Black;
+            _originalPolyline.getPolyline().Stroke = MyBrushes.Black;
             foreach (StylusPoint aStylusPoint in _newStroke.StylusPoints)
             {
                 _originalPolyline.getPolyline().Points.Add(aStylusPoint.ToPoint());

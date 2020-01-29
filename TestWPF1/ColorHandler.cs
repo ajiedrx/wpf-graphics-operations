@@ -21,12 +21,11 @@ namespace TestWPF1
             this.canvasObjectHandler = _canvasObjectHandler;
         }
         public void fillPolygon() {
-            BrushConverter brushConverter = new BrushConverter();
-            Brush brush = (Brush)brushConverter.ConvertFromString(getColorFill());
+            MyBrushConverter brushConverter = new MyBrushConverter();
             MyPolygon myPolygon = new MyPolygon();
-            myPolygon.getPolygon().Stroke = Brushes.Black; 
+            myPolygon.getPolygon().Stroke = MyBrushes.Black; 
             myPolygon.getPolygon().StrokeThickness = 1;
-            myPolygon.getPolygon().Fill = brush;
+            myPolygon.getPolygon().Fill = brushConverter.getConvertedBrush(getColorFill());
             canvasObjectHandler.getPolygonShape().setMyPolygon(myPolygon);
         }
 

@@ -66,9 +66,5 @@ namespace TestWPF1
         private void onClickChangeColor_btn(object sender, RoutedEventArgs e){
             graphicsOperations.toggleChangeColorButton();
         }
-
-        public ToggleButton getChangeColorButton() {
-            return changeColor_btn;
-        }
     }
 }

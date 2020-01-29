@@ -9,18 +9,24 @@ namespace TestWPF1
 {
     public class CanvasObjectHandler : ICanvasObjectHandler
     {
-        private PolylineShape polylineShape;
-        private PolygonShape polygonShape;
+        private IPolylineShape polylineShape;
+        private IPolygonShape polygonShape;
         public CanvasObjectHandler() {
-            this.polylineShape = new PolylineShape();
-            this.polygonShape = new PolygonShape();
+        
         }
 
-        public PolylineShape getPolylineShape() {
+        public void setPolygonShape(IPolygonShape _polygonShape) {
+            this.polygonShape = _polygonShape;
+        }
+        public void setPolylineShape(IPolylineShape _polylineShape)
+        {
+            this.polylineShape = _polylineShape;
+        }
+        public IPolylineShape getPolylineShape() {
             return this.polylineShape;
         }
 
-        public PolygonShape getPolygonShape() {
+        public IPolygonShape getPolygonShape() {
             return this.polygonShape;
         }
     }

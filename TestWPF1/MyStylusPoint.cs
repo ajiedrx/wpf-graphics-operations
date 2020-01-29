@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace TestWPF1
 {
-    public interface IShape
+    public class MyStylusPoint
     {
-        PolygonShape getPolygonShape();
-        PolylineShape getPolylineShape();
+
     }
 }

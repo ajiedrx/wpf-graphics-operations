@@ -8,8 +8,11 @@ namespace TestWPF1
 {
     public interface ICanvasObjectHandler
     {
-        PolylineShape getPolylineShape();
+        IPolylineShape getPolylineShape();
 
-        PolygonShape getPolygonShape();
+        IPolygonShape getPolygonShape();
+
+        void setPolygonShape(IPolygonShape _polygonShape);
+        void setPolylineShape(IPolylineShape _polylineShape);
     }
 }

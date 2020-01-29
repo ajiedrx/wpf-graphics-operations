@@ -27,6 +27,7 @@ namespace TestWPF1
         }
         public void getMouseDownInfo(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas) {
             getFirstMousePoint(_e, _mainWindow);
+            Console.WriteLine(_e.OriginalSource.ToString());
             if (_e.OriginalSource.ToString().Equals(POLYLINE) && GraphicsOperations.getDuplicateButtonCheck()){
                 canvasObjectHandler.getPolylineShape().duplicateLine(_e, _InkCanvas);
             }

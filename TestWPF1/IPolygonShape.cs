@@ -11,9 +11,9 @@ namespace TestWPF1
     public interface IPolygonShape
     {
         void duplicatePolygon(MouseEventArgs _obj, InkCanvas _InkCanvas);
-        void setMyPolygon(MyPolygon _myPolygon);
+        void setMyPolygon(IMyPolygon _myPolygon);
 
-        MyPolygon getMyPolygon();
+        IMyPolygon getMyPolygon();
 
         void setColorHandler(IColorHandler _colorHandler);
         void changePolygonColor(MouseEventArgs _obj, InkCanvas _InkCanvas);

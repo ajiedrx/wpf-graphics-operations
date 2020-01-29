@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 
 namespace TestWPF1
 {
-    public class MyPolygon
+    public class MyPolygon : IMyPolygon
     {
         private Polygon polygon;
 
@@ -15,8 +15,8 @@ namespace TestWPF1
             this.polygon = new Polygon();
         }
 
-        public void setPolygon(Polygon _polygon) {
-            this.polygon = _polygon;
+        public void setPolygon(object _polygon) {
+            this.polygon = (Polygon)_polygon;
         }
 
         public Polygon getPolygon() {

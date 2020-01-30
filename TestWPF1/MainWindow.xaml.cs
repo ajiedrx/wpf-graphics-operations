@@ -1,11 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Windows.Ink;
-using System.Windows.Controls.Primitives;
 
 namespace TestWPF1
 {
@@ -32,6 +27,12 @@ namespace TestWPF1
 
         private void OnClickDuplicate_btn(object sender, RoutedEventArgs e){
             graphicsOperations.toggleDuplicateButton();
+            changeColor_btn.IsChecked = false;
+        }
+
+        private void onClickChangeColor_btn(object sender, RoutedEventArgs e){
+            graphicsOperations.toggleChangeColorButton();
+            duplicate_btn.IsChecked = false;
         }
 
         private void OnClickDrawLine_btn(object sender, RoutedEventArgs e){
@@ -54,17 +55,12 @@ namespace TestWPF1
             graphicsOperations.copySelection(InkCanvas);
         }
 
-        private void OnColorPick_cp(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e) 
-        {
+        private void OnColorPick_cp(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e){
             graphicsOperations.onColorPick_cp(InkCanvas, colorPicker);
         }
 
         private void OnInkCanvasMouseUp(object sender, MouseButtonEventArgs e){
             graphicsOperations.getMouseUpInfo(InkCanvas, e, this);
-        }
-
-        private void onClickChangeColor_btn(object sender, RoutedEventArgs e){
-            graphicsOperations.toggleChangeColorButton();
         }
     }
 }

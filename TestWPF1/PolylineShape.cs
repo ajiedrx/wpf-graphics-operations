@@ -9,47 +9,61 @@ namespace TestWPF1
 {
     public class PolylineShape : IPolylineShape
     {
+        private IMyPolyline myPolyline;
+        private IMyStroke myStroke;
+        private IMyStrokeCollection myStrokeCollection;
+        private IMyDrawingAttributes myDrawingAttributes;
+        public void setMyStroke(IMyStroke _myStroke)
+        {
+            this.myStroke = _myStroke;
+        }
+        public void setMyStrokeCollection(IMyStrokeCollection _myStrokeCollection)
+        {
+            this.myStrokeCollection = _myStrokeCollection;
+        }
+        public void setMyDrawingAttributes(IMyDrawingAttributes _myDrawingAttributes)
+        {
+            this.myDrawingAttributes = _myDrawingAttributes;
+        }
         public void duplicateLine(MouseEventArgs _obj, InkCanvas _InkCanvas){
-            MyPolyline originalPolyline = new MyPolyline();
-            originalPolyline.setPolyline((Polyline)_obj.OriginalSource);
-            MyDrawingAttributes drawingAttribute = new MyDrawingAttributes() {
-                Color = Colors.Black
-            };
-            MyStroke newStroke = new MyStroke(createMyStylusPointCollection(originalPolyline), drawingAttribute);
-            _InkCanvas.Strokes.Add(newStroke);
-            originalPolyline = createNewPolylineFromStroke(newStroke);
-            _InkCanvas.Strokes.Remove(newStroke);
+            IMyPolyline originalPolyline = myPolyline.createMyPolyline();
+            originalPolyline.setPolyline(_obj.OriginalSource);
+            myStroke.createStroke(originalPolyline.getPolylinePoints(), myDrawingAttributes.createMyDrawingAttributes(Colors.Black));
+            _InkCanvas.Strokes.Add(myStroke.getStroke());
+            originalPolyline = createNewPolylineFromStroke(myStroke);
+            _InkCanvas.Strokes.Remove(myStroke.getStroke());
+            originalPolyline.getPolyline().Stroke = Brushes.Black;
             _InkCanvas.Children.Add(originalPolyline.getPolyline());
         }
 
-        public MyPolyline createNewPolylineFromStroke(MyStroke _newStroke)
+        public IMyPolyline createNewPolylineFromStroke(IMyStroke _newStroke)
         {
-            MyPolyline _originalPolyline = new MyPolyline();
+            IMyPolyline _originalPolyline = myPolyline.createMyPolyline();
             _originalPolyline.getPolyline().Stroke = MyBrushes.Black;
-            foreach (StylusPoint aStylusPoint in _newStroke.StylusPoints)
+            foreach (StylusPoint aStylusPoint in _newStroke.getStroke().StylusPoints)
             {
                 _originalPolyline.getPolyline().Points.Add(aStylusPoint.ToPoint());
             }
             return _originalPolyline;
         }
 
-        public MyStylusPointCollection createMyStylusPointCollection(MyPolyline _originalPolyline)
+        public void printPolyline(InkCanvas _InkCanvas, MyPoint _firstPoint, MyPoint _endPoint)
         {
-            MyStylusPointCollection points = new MyStylusPointCollection();
-            foreach (Point aPoint in _originalPolyline.getPolyline().Points)
-            {
-                points.Add(new StylusPoint(aPoint.X, aPoint.Y));
-            }
-            return points;
+            IMyPolyline newPolyline = myPolyline.createMyPolyline();
+            newPolyline.getPolyline().Points.Add(_firstPoint.getPoint());
+            newPolyline.getPolyline().Points.Add(_endPoint.getPoint());
+            newPolyline.getPolyline().Stroke = Brushes.Black;
+            _InkCanvas.Children.Add(newPolyline.getPolyline());
         }
 
-        public void printPolyline(InkCanvas _InkCanvas, Point _firstPoint, Point _endPoint)
+        public void setMyPolyline(IMyPolyline _myPolyline)
         {
-            MyPolyline polyline = new MyPolyline();
-            polyline.getPolyline().Points.Add(_firstPoint);
-            polyline.getPolyline().Points.Add(_endPoint);
-            polyline.getPolyline().Stroke = Brushes.Black;
-            _InkCanvas.Children.Add(polyline.getPolyline());
+            this.myPolyline = _myPolyline;
+        }
+
+        public IMyPolyline getMyPolyline()
+        {
+            return this.myPolyline;
         }
     }
 }

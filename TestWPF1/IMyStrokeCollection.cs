@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows.Ink;
 
 namespace TestWPF1
 {
-    public class MyStylusPoint
+    public interface IMyStrokeCollection
     {
-
+        MyStrokeCollection createStrokeCollection(StrokeCollection _strokeCollection);
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
+using System.Windows.Input;
 using System.Windows.Shapes;
 
 namespace TestWPF1
@@ -25,6 +22,21 @@ namespace TestWPF1
 
         public MyPolygon createPolygon() {
             return new MyPolygon();
+        }
+
+        public MyStylusPointCollection getPolygonPoints() {
+            MyStylusPointCollection points = new MyStylusPointCollection();
+            foreach (Point aPoint in polygon.Points)
+            {
+                points.Add(new StylusPoint(aPoint.X, aPoint.Y));
+            }
+            return points;
+        }
+
+        public void setPolygonPoints(IMyStroke _stroke){
+            foreach (StylusPoint aStylusPoint in _stroke.getStroke().StylusPoints) {
+                polygon.Points.Add(aStylusPoint.ToPoint());
+            }
         }
     }
 }

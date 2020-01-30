@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -10,65 +9,81 @@ namespace TestWPF1
         private IColorHandler colorHandler;
         private IMouseHandler mouseHandler;
         private ICanvasObjectHandler canvasObjectHandler;
-        private static bool duplicateButtonCheck = false;
-        private static bool changeColorButtonCheck = false;
+        private bool duplicateButtonCheck = false;
+        private bool changeColorButtonCheck = false;
 
         #region state-setter-getter
 
-        public static string state;
-        public static void setState(String _state)
-        {
+        public static StateEnum state;
+        public static void setState(StateEnum _state) {
             state = _state;
         }
-        public static string getState()
-        {
+        public static StateEnum getState() {
             return state;
         }
         #endregion
 
-        public GraphicsOperations(){
+        public GraphicsOperations() {
             setState(StateEnum.DRAW);
             initializeModule();
         }
 
-        private void initializeModule()
-        {
-            canvasObjectHandler = new CanvasObjectHandler();
+        private void initializeModule() {
+            this.canvasObjectHandler = new CanvasObjectHandler();
             initializeCanvasObjectHandler();
             setCanvasObjectHandler(canvasObjectHandler);
-            colorHandler = new ColorHandler(canvasObjectHandler);
+            this.colorHandler = new ColorHandler(canvasObjectHandler, this);
+            initializeColorHandler();
             canvasObjectHandler.getPolygonShape().setColorHandler(colorHandler);
-            mouseHandler = new MouseHandler(canvasObjectHandler);
+            this.mouseHandler = new MouseHandler(canvasObjectHandler);
         }
 
-        public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler){
+        public void initializeColorHandler() {
+            colorHandler.setMyBrushConverter(new MyBrushConverter());
+            colorHandler.setMyPolygon(new MyPolygon());
+        }
+
+        public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler) {
             canvasObjectHandler = _canvasObjectHandler;
         }
 
         public void initializeCanvasObjectHandler() {
+            MyDrawingAttributes myDrawingAttributes = new MyDrawingAttributes();
+            MyStrokeCollection myStrokeCollection = new MyStrokeCollection();
+            MyStroke myStroke = new MyStroke();
             this.canvasObjectHandler.setPolygonShape(new PolygonShape());
             this.canvasObjectHandler.setPolylineShape(new PolylineShape());
+            this.canvasObjectHandler.setGraphicsOperations(this);
+            setShapeComponents(myDrawingAttributes, myStrokeCollection, myStroke);
         }
-
+        public void setShapeComponents(MyDrawingAttributes _myDrawingAttributes, MyStrokeCollection _myStrokeCollection, MyStroke _myStroke) {
+            this.canvasObjectHandler.getPolygonShape().setMyDrawingAttributes(_myDrawingAttributes);
+            this.canvasObjectHandler.getPolygonShape().setMyStrokeCollection(_myStrokeCollection);
+            this.canvasObjectHandler.getPolygonShape().setMyStroke(_myStroke);
+            this.canvasObjectHandler.getPolylineShape().setMyDrawingAttributes(_myDrawingAttributes);
+            this.canvasObjectHandler.getPolylineShape().setMyStrokeCollection(_myStrokeCollection);
+            this.canvasObjectHandler.getPolylineShape().setMyStroke(_myStroke);
+        }
         public void setMouseHandler(IMouseHandler _mouseHandler)
         {
             mouseHandler = _mouseHandler;
         }
 
-        public void setColorHandler(IColorHandler _colorHandler)
-        {
+        public void setColorHandler(IColorHandler _colorHandler) {
             colorHandler = _colorHandler;
         }
 
-        public void toggleDuplicateButton(){
+        public void toggleDuplicateButton() {
             duplicateButtonCheck = !duplicateButtonCheck;
+            changeColorButtonCheck = false;
         }
 
-        public void toggleChangeColorButton(){
+        public void toggleChangeColorButton() {
             changeColorButtonCheck = !changeColorButtonCheck;
+            duplicateButtonCheck = false;
         }
 
-        public void selectState(InkCanvas _InkCanvas, InkCanvasEditingMode _InkCanvasEditingMode, string _state){
+        public void selectState(InkCanvas _InkCanvas, InkCanvasEditingMode _InkCanvasEditingMode, StateEnum _state) {
             if (duplicateButtonCheck){
                 duplicateButtonCheck = false;
             }
@@ -76,11 +91,11 @@ namespace TestWPF1
             setState(_state);
         }
 
-        public void copySelection(InkCanvas _InkCanvas){
+        public void copySelection(InkCanvas _InkCanvas) {
             _InkCanvas.CopySelection();
         }
 
-        public void pasteFromClipboard(InkCanvas _InkCanvas){
+        public void pasteFromClipboard(InkCanvas _InkCanvas) {
             if (_InkCanvas.CanPaste())
             {
                 _InkCanvas.Paste(
@@ -93,22 +108,24 @@ namespace TestWPF1
         }
 
         public void onInkCanvasMouseDown(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas) {
-            mouseHandler.getMouseDownInfo(_e, _mainWindow, _InkCanvas);
+            mouseHandler.setMouseDownAction(_e, _mainWindow, _InkCanvas);
         }
 
         public void getMouseUpInfo(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow){
             if (getState() == StateEnum.DRAW_LINE)
             {
-                Point firstPoint = new Point(mouseHandler.getPoint().X, mouseHandler.getPoint().Y);
-                Point endPoint = _e.GetPosition(_mainWindow);
+                this.canvasObjectHandler.getPolylineShape().setMyPolyline(new MyPolyline());
+                MyPoint firstPoint = mouseHandler.getMyPoint();
+                MyPoint endPoint = new MyPoint();
+                endPoint.setPoint(_e.GetPosition(_mainWindow));
                 canvasObjectHandler.getPolylineShape().printPolyline(_InkCanvas, firstPoint, endPoint);
             }
         }
 
-        public static bool getDuplicateButtonCheck() {
+        public bool getDuplicateButtonCheck() {
             return duplicateButtonCheck;
         }
-        public static bool getChangeColorButtonCheck() {
+        public bool getChangeColorButtonCheck() {
             return changeColorButtonCheck;
         }
     }

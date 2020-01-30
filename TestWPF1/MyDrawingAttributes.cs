@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Ink;
+﻿using System.Windows.Ink;
 using System.Windows.Media;
 
 namespace TestWPF1
 {
-    public class MyDrawingAttributes : DrawingAttributes
+    public class MyDrawingAttributes : DrawingAttributes, IMyDrawingAttributes
     {
         public MyDrawingAttributes()
         {
@@ -17,6 +11,14 @@ namespace TestWPF1
         }
         public DrawingAttributes createDrawingAttributes() {
             return new DrawingAttributes();
+        }
+
+        public MyDrawingAttributes createMyDrawingAttributes(Color _color)
+        {
+            return new MyDrawingAttributes()
+            {
+                Color = _color
+            };
         }
     }
 }

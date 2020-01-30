@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Ink;
-using System.Windows.Media;
-
 namespace TestWPF1
 {
-    public class MyStrokeCollection : StrokeCollection
+    public class MyStrokeCollection : StrokeCollection, IMyStrokeCollection
     {
         public MyStrokeCollection()
         {
@@ -28,6 +21,11 @@ namespace TestWPF1
         public override StrokeCollection Clone()
         {
             return base.Clone();
+        }
+
+        public MyStrokeCollection createStrokeCollection(StrokeCollection _strokeCollection)
+        {
+            return new MyStrokeCollection(_strokeCollection);
         }
 
         public override bool Equals(object obj)

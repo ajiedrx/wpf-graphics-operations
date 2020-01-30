@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace TestWPF1
 {
-    interface IGraphicsOperations
+    public interface IGraphicsOperations
     {
         void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler);
 
@@ -16,7 +11,7 @@ namespace TestWPF1
 
         void toggleChangeColorButton();
 
-        void selectState(InkCanvas _InkCanvas, InkCanvasEditingMode _InkCanvasEditingMode, string _state);
+        void selectState(InkCanvas _InkCanvas, InkCanvasEditingMode _InkCanvasEditingMode, StateEnum _state);
 
         void copySelection(InkCanvas _InkCanvas);
 
@@ -27,5 +22,9 @@ namespace TestWPF1
         void onInkCanvasMouseDown(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas);
 
         void getMouseUpInfo(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow);
+
+        bool getDuplicateButtonCheck();
+
+        bool getChangeColorButtonCheck();
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace TestWPF1
 {
@@ -14,5 +11,7 @@ namespace TestWPF1
 
         void setPolygonShape(IPolygonShape _polygonShape);
         void setPolylineShape(IPolylineShape _polylineShape);
+        void canvasObjectAction(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas);
+        void setGraphicsOperations(IGraphicsOperations _graphicsOperations);
     }
 }

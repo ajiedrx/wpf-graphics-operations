@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace TestWPF1
@@ -18,5 +13,9 @@ namespace TestWPF1
         void setColorHandler(IColorHandler _colorHandler);
         void changePolygonColor(MouseEventArgs _obj, InkCanvas _InkCanvas);
         void replaceSelectedStroke(InkCanvas _InkCanvas);
+
+        void setMyStroke(IMyStroke _myStroke);
+        void setMyStrokeCollection(IMyStrokeCollection _myStrokeCollection);
+        void setMyDrawingAttributes(IMyDrawingAttributes _myDrawingAttributes);
     }
 }

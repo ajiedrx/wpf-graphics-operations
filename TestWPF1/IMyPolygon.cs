@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Shapes;
+﻿using System.Windows.Shapes;
 
 namespace TestWPF1
 {
@@ -14,5 +9,8 @@ namespace TestWPF1
         Polygon getPolygon();
 
         MyPolygon createPolygon();
+
+        MyStylusPointCollection getPolygonPoints();
+        void setPolygonPoints(IMyStroke _stroke);
     }
 }

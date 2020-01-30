@@ -100,8 +100,12 @@
     <Compile Include="IColorHandler.cs" />
     <Compile Include="IGraphicsOperations.cs" />
     <Compile Include="IMouseHandler.cs" />
+    <Compile Include="IMyBrushConverter.cs" />
     <Compile Include="IMyPolygon.cs" />
     <Compile Include="IMyDrawingAttributes.cs" />
+    <Compile Include="IMyStroke.cs" />
+    <Compile Include="IMyStrokeCollection.cs" />
+    <Compile Include="IMyPolyline.cs" />
     <Compile Include="IPolylineShape.cs" />
     <Compile Include="IPolygonShape.cs" />
     <Compile Include="MyBrushConverter.cs" />
@@ -109,13 +113,11 @@
     <Compile Include="MyPoint.cs" />
     <Compile Include="MyPolyline.cs" />
     <Compile Include="MyPolygon.cs" />
-    <Compile Include="MyStylusPoint.cs" />
     <Compile Include="PolylineShape.cs" />
     <Compile Include="MyDrawingAttributes.cs" />
     <Compile Include="MyStylusPointCollection.cs" />
     <Compile Include="MouseHandler.cs" />
     <Compile Include="ColorHandler.cs" />
-    <Compile Include="MyInkCanvas.cs" />
     <Compile Include="MyStrokeCollection.cs" />
     <Compile Include="MyStroke.cs" />
     <Compile Include="StateEnum.cs" />

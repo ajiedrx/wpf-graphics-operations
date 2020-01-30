@@ -1,10 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Windows.Ink;
+﻿using System.Windows.Controls;
 
 namespace TestWPF1
 {
@@ -15,22 +9,37 @@ namespace TestWPF1
         private string colorFill = DEFAULT_COLOR_FILL;
         private string colorAttr = DEFAULT_COLOR_ATTR;
         private ICanvasObjectHandler canvasObjectHandler;
+        private IGraphicsOperations graphicsOperations;
+        private IMyPolygon myPolygon;
+        private IMyBrushConverter myBrushConverter;
 
-        public ColorHandler() { }
-        public ColorHandler(ICanvasObjectHandler _canvasObjectHandler) {
+        public ColorHandler() {
+        }
+        public ColorHandler(ICanvasObjectHandler _canvasObjectHandler, IGraphicsOperations _graphicsOperations) {
             this.canvasObjectHandler = _canvasObjectHandler;
+            this.graphicsOperations = _graphicsOperations;
+            this.myBrushConverter = new MyBrushConverter();
+        }
+        public IMyBrushConverter getMyBrushConverter() {
+            return this.myBrushConverter;
+        }
+        public void setMyBrushConverter(IMyBrushConverter _myBrushConverter) {
+            this.myBrushConverter = _myBrushConverter;
+        }
+        public void setMyPolygon(IMyPolygon _myPolygon)
+        {
+            this.myPolygon = _myPolygon;
         }
         public void fillPolygon() {
-            MyBrushConverter brushConverter = new MyBrushConverter();
-            MyPolygon myPolygon = new MyPolygon();
-            myPolygon.getPolygon().Stroke = MyBrushes.Black; 
-            myPolygon.getPolygon().StrokeThickness = 1;
-            myPolygon.getPolygon().Fill = brushConverter.getConvertedBrush(getColorFill());
-            canvasObjectHandler.getPolygonShape().setMyPolygon(myPolygon);
+            IMyPolygon newPolygon = myPolygon.createPolygon();
+            newPolygon.getPolygon().Stroke = MyBrushes.Black; 
+            newPolygon.getPolygon().StrokeThickness = 1;
+            newPolygon.getPolygon().Fill = myBrushConverter.getConvertedBrush(getColorFill());
+            canvasObjectHandler.getPolygonShape().setMyPolygon(newPolygon);
         }
 
         public void checkOnColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker) {
-            if (!GraphicsOperations.getChangeColorButtonCheck()) {
+            if (!graphicsOperations.getChangeColorButtonCheck()) {
                 onColorPick(_InkCanvas, _colorPicker);
                 canvasObjectHandler.getPolygonShape().replaceSelectedStroke(_InkCanvas);
             }
@@ -41,7 +50,7 @@ namespace TestWPF1
 
         public void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker) {
             if (_colorPicker.SelectedColor.HasValue) {
-                if (!GraphicsOperations.getChangeColorButtonCheck()) {
+                if (!graphicsOperations.getChangeColorButtonCheck()) {
                     setColorFill(_colorPicker.SelectedColor.ToString());
                     fillThenReplace(_InkCanvas);
                 }

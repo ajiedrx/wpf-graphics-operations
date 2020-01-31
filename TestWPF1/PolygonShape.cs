@@ -13,6 +13,7 @@ namespace TestWPF1
         private IMyStroke myStroke;
         private IMyStrokeCollection myStrokeCollection;
         private IMyDrawingAttributes myDrawingAttributes;
+        private IMyBrushConverter myBrushConverter;
         public PolygonShape() { }
 
         public void duplicatePolygon(MouseEventArgs _obj, InkCanvas _InkCanvas) {
@@ -56,7 +57,7 @@ namespace TestWPF1
             IMyPolygon newPolygon = myPolygon.createPolygon();
             newPolygon.getPolygon().Stroke = MyBrushes.Black;
             newPolygon.setPolygonPoints(_newStroke);
-            newPolygon.getPolygon().Fill = colorHandler.getMyBrushConverter().getConvertedBrush(_color);
+            newPolygon.getPolygon().Fill = myBrushConverter.getConvertedBrush(_color);
             return newPolygon;
         }
 
@@ -66,12 +67,7 @@ namespace TestWPF1
         }
 
         public void printPolygon(MyStrokeCollection _strokeCollection, InkCanvas _InkCanvas) {
-            for (int i = 0; i < _strokeCollection.Count; i++) {
-                for (int j = 0; j < _strokeCollection[i].StylusPoints.Count; j++) {
-                    myPolygon.getPolygon().Points.Add(_strokeCollection[i].StylusPoints[j].ToPoint());
-                }
-            }
-            _InkCanvas.Children.Add(myPolygon.getPolygon());
+            _InkCanvas.Children.Add(myPolygon.createPolygonFromStrokeCollection(_strokeCollection));
         }
 
         public void setMyPolygon(IMyPolygon _myPolygon) {
@@ -84,6 +80,11 @@ namespace TestWPF1
 
         public void setColorHandler(IColorHandler _colorHandler) {
             this.colorHandler = _colorHandler;
+        }
+
+        public void setMyBrushConverter(IMyBrushConverter _myBrushConverter)
+        {
+            this.myBrushConverter = _myBrushConverter;
         }
     }
 }

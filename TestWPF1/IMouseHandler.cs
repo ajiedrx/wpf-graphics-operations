@@ -7,10 +7,11 @@ namespace TestWPF1
 {
     public interface IMouseHandler
     {
-        void setMyPoint(MyPoint _point);
-        MyPoint getMyPoint();
-        void setPointOnMouseDown(MouseEventArgs _e, MainWindow _mainWindow);
+        IMyPoint getMyPoint();
+        IMyPoint getPointOnMouseDown(MouseEventArgs _e, MainWindow _mainWindow);
         void setMouseDownAction(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas);
-        
+        void setMyPoint(IMyPoint _myPoint);
+        void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler);
+        IMyPoint getMyPointOnMouseUp(MouseButtonEventArgs _e, MainWindow _mainWindow);
     }
 }

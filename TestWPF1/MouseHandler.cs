@@ -7,32 +7,39 @@ namespace TestWPF1
     public class MouseHandler : IMouseHandler
     {
         ICanvasObjectHandler canvasObjectHandler;
-        private MyPoint myPoint;
+        private IMyPoint myPoint;
 
-        public MouseHandler(ICanvasObjectHandler _canvasObjectHandler) {
+        public MouseHandler() {
+        }
+
+        public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler) {
             this.canvasObjectHandler = _canvasObjectHandler;
-            this.myPoint = new MyPoint();
         }
-        public void setMyPoint(MyPoint _point) {
-            myPoint = _point;
-        }
-        public MyPoint getMyPoint() {
+        public IMyPoint getMyPoint() {
             return myPoint;
         }
-        public void setPointOnMouseDown(MouseEventArgs _e, MainWindow _mainWindow) {
+        public IMyPoint getPointOnMouseDown(MouseEventArgs _e, MainWindow _mainWindow) {
             myPoint.setPoint(_e.GetPosition(_mainWindow));
-        }
-        public void setPointOnMouseUp() { 
-        
+            return this.myPoint;
         }
         public void setMouseDownAction(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas) {
-            setPointOnMouseDown(_e, _mainWindow);
+            getPointOnMouseDown(_e, _mainWindow);
             canvasObjectHandler.canvasObjectAction(_e, _mainWindow, _InkCanvas);
         }
 
-        public void getFirstMousePoint(MouseEventArgs _e, MainWindow _mainWindow)
-        {
+        public void getFirstMousePoint(MouseEventArgs _e, MainWindow _mainWindow) {
             throw new NotImplementedException();
+        }
+
+        public void setMyPoint(IMyPoint _myPoint) {
+            this.myPoint = _myPoint;
+        }
+
+        public IMyPoint getMyPointOnMouseUp(MouseButtonEventArgs _e, MainWindow _mainWindow)
+        {
+            IMyPoint endPoint = myPoint.createMyPoint();
+            endPoint.setPoint(_e.GetPosition(_mainWindow));
+            return endPoint;
         }
     }
 }

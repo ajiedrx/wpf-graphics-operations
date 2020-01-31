@@ -60,7 +60,7 @@ namespace TestWPF1
         }
 
         private void OnInkCanvasMouseUp(object sender, MouseButtonEventArgs e){
-            graphicsOperations.getMouseUpInfo(InkCanvas, e, this);
+            graphicsOperations.onInkCanvasMouseUp(InkCanvas, e, this);
         }
     }
 }

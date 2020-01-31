@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace TestWPF1
@@ -39,5 +40,13 @@ namespace TestWPF1
             }
         }
 
+        public MyPolyline makePolylineWithPoints(IMyPoint _firstPoint, IMyPoint _endPoint, SolidColorBrush _brushes)
+        {
+            MyPolyline newPolyline = new MyPolyline();
+            newPolyline.getPolyline().Points.Add(_firstPoint.getPoint());
+            newPolyline.getPolyline().Points.Add(_endPoint.getPoint());
+            newPolyline.getPolyline().Stroke = _brushes;
+            return newPolyline;
+        }
     }
 }

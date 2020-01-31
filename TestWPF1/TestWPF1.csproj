@@ -101,6 +101,7 @@
     <Compile Include="IGraphicsOperations.cs" />
     <Compile Include="IMouseHandler.cs" />
     <Compile Include="IMyBrushConverter.cs" />
+    <Compile Include="IMyPoint.cs" />
     <Compile Include="IMyPolygon.cs" />
     <Compile Include="IMyDrawingAttributes.cs" />
     <Compile Include="IMyStroke.cs" />

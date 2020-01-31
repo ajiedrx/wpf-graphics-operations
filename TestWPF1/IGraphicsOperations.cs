@@ -21,7 +21,7 @@ namespace TestWPF1
 
         void onInkCanvasMouseDown(MouseEventArgs _e, MainWindow _mainWindow, InkCanvas _InkCanvas);
 
-        void getMouseUpInfo(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow);
+        void onInkCanvasMouseUp(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow);
 
         bool getDuplicateButtonCheck();
 

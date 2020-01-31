@@ -13,7 +13,7 @@ namespace TestWPF1
         void setColorHandler(IColorHandler _colorHandler);
         void changePolygonColor(MouseEventArgs _obj, InkCanvas _InkCanvas);
         void replaceSelectedStroke(InkCanvas _InkCanvas);
-
+        void setMyBrushConverter(IMyBrushConverter _myBrushConverter);
         void setMyStroke(IMyStroke _myStroke);
         void setMyStrokeCollection(IMyStrokeCollection _myStrokeCollection);
         void setMyDrawingAttributes(IMyDrawingAttributes _myDrawingAttributes);

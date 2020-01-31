@@ -33,6 +33,16 @@ namespace TestWPF1
             return points;
         }
 
+        public Polygon createPolygonFromStrokeCollection(MyStrokeCollection _myStrokeCollection) {
+            for (int i = 0; i < _myStrokeCollection.Count; i++) {
+                for (int j = 0; j < _myStrokeCollection[i].StylusPoints.Count; j++)
+                {
+                    polygon.Points.Add(_myStrokeCollection[i].StylusPoints[j].ToPoint());
+                }
+            }
+            return polygon;
+        }
+
         public void setPolygonPoints(IMyStroke _stroke){
             foreach (StylusPoint aStylusPoint in _stroke.getStroke().StylusPoints) {
                 polygon.Points.Add(aStylusPoint.ToPoint());

@@ -15,13 +15,11 @@ namespace TestWPF1
 
         public ColorHandler() {
         }
-        public ColorHandler(ICanvasObjectHandler _canvasObjectHandler, IGraphicsOperations _graphicsOperations) {
+        public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler) {
             this.canvasObjectHandler = _canvasObjectHandler;
-            this.graphicsOperations = _graphicsOperations;
-            this.myBrushConverter = new MyBrushConverter();
         }
-        public IMyBrushConverter getMyBrushConverter() {
-            return this.myBrushConverter;
+        public void setGraphicsOperations(IGraphicsOperations _graphicsOperations) {
+            this.graphicsOperations = _graphicsOperations;
         }
         public void setMyBrushConverter(IMyBrushConverter _myBrushConverter) {
             this.myBrushConverter = _myBrushConverter;

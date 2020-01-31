@@ -29,25 +29,30 @@ namespace TestWPF1
         }
 
         private void initializeModule() {
-            this.canvasObjectHandler = new CanvasObjectHandler();
             initializeCanvasObjectHandler();
             setCanvasObjectHandler(canvasObjectHandler);
-            this.colorHandler = new ColorHandler(canvasObjectHandler, this);
             initializeColorHandler();
-            canvasObjectHandler.getPolygonShape().setColorHandler(colorHandler);
-            this.mouseHandler = new MouseHandler(canvasObjectHandler);
+            initializeMouseHandler();
         }
 
         public void initializeColorHandler() {
+            colorHandler = new ColorHandler();
+            colorHandler.setCanvasObjectHandler(canvasObjectHandler);
+            colorHandler.setGraphicsOperations(this);
             colorHandler.setMyBrushConverter(new MyBrushConverter());
             colorHandler.setMyPolygon(new MyPolygon());
+            canvasObjectHandler.getPolygonShape().setColorHandler(colorHandler);
         }
 
-        public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler) {
-            canvasObjectHandler = _canvasObjectHandler;
+        public void initializeMouseHandler() {
+            this.mouseHandler = new MouseHandler();
+            this.mouseHandler.setCanvasObjectHandler(canvasObjectHandler);
+            this.mouseHandler.setMyPoint(new MyPoint());
         }
 
-        public void initializeCanvasObjectHandler() {
+        public void initializeCanvasObjectHandler()
+        {
+            this.canvasObjectHandler = new CanvasObjectHandler();
             MyDrawingAttributes myDrawingAttributes = new MyDrawingAttributes();
             MyStrokeCollection myStrokeCollection = new MyStrokeCollection();
             MyStroke myStroke = new MyStroke();
@@ -56,12 +61,17 @@ namespace TestWPF1
             this.canvasObjectHandler.setGraphicsOperations(this);
             setShapeComponents(myDrawingAttributes, myStrokeCollection, myStroke);
         }
+
+        public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler) {
+            canvasObjectHandler = _canvasObjectHandler;
+        }
+
         public void setShapeComponents(MyDrawingAttributes _myDrawingAttributes, MyStrokeCollection _myStrokeCollection, MyStroke _myStroke) {
             this.canvasObjectHandler.getPolygonShape().setMyDrawingAttributes(_myDrawingAttributes);
             this.canvasObjectHandler.getPolygonShape().setMyStrokeCollection(_myStrokeCollection);
             this.canvasObjectHandler.getPolygonShape().setMyStroke(_myStroke);
+            this.canvasObjectHandler.getPolygonShape().setMyBrushConverter(new MyBrushConverter());
             this.canvasObjectHandler.getPolylineShape().setMyDrawingAttributes(_myDrawingAttributes);
-            this.canvasObjectHandler.getPolylineShape().setMyStrokeCollection(_myStrokeCollection);
             this.canvasObjectHandler.getPolylineShape().setMyStroke(_myStroke);
         }
         public void setMouseHandler(IMouseHandler _mouseHandler)
@@ -111,13 +121,12 @@ namespace TestWPF1
             mouseHandler.setMouseDownAction(_e, _mainWindow, _InkCanvas);
         }
 
-        public void getMouseUpInfo(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow){
+        public void onInkCanvasMouseUp(InkCanvas _InkCanvas, MouseButtonEventArgs _e, MainWindow _mainWindow){
             if (getState() == StateEnum.DRAW_LINE)
             {
                 this.canvasObjectHandler.getPolylineShape().setMyPolyline(new MyPolyline());
-                MyPoint firstPoint = mouseHandler.getMyPoint();
-                MyPoint endPoint = new MyPoint();
-                endPoint.setPoint(_e.GetPosition(_mainWindow));
+                MyPoint firstPoint = (MyPoint)mouseHandler.getMyPoint();
+                MyPoint endPoint = (MyPoint)mouseHandler.getMyPointOnMouseUp(_e, _mainWindow);
                 canvasObjectHandler.getPolylineShape().printPolyline(_InkCanvas, firstPoint, endPoint);
             }
         }

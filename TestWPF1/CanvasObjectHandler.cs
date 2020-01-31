@@ -15,9 +15,7 @@ namespace TestWPF1
         private IGraphicsOperations graphicsOperations;
         private readonly string POLYGON     = "System.Windows.Shapes.Polygon";
         private readonly string POLYLINE    = "System.Windows.Shapes.Polyline";
-        public CanvasObjectHandler() {
-            //setPolygonShapeComponents();
-        }
+        public CanvasObjectHandler() { }
         
         public void setPolygonShape(IPolygonShape _polygonShape) {
             this.polygonShape = _polygonShape;

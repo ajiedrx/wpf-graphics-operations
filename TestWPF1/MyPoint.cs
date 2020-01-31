@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace TestWPF1
 {
-    public class MyPoint
+    public class MyPoint : IMyPoint
     {
         private Point point;
 
@@ -21,6 +21,11 @@ namespace TestWPF1
 
         public void setPoint(Point _point) {
             this.point = _point;
+        }
+
+        public MyPoint createMyPoint()
+        {
+            return new MyPoint();
         }
     }
 }

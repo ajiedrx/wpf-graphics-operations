@@ -11,15 +11,10 @@ namespace TestWPF1
     {
         private IMyPolyline myPolyline;
         private IMyStroke myStroke;
-        private IMyStrokeCollection myStrokeCollection;
         private IMyDrawingAttributes myDrawingAttributes;
         public void setMyStroke(IMyStroke _myStroke)
         {
             this.myStroke = _myStroke;
-        }
-        public void setMyStrokeCollection(IMyStrokeCollection _myStrokeCollection)
-        {
-            this.myStrokeCollection = _myStrokeCollection;
         }
         public void setMyDrawingAttributes(IMyDrawingAttributes _myDrawingAttributes)
         {
@@ -40,19 +35,13 @@ namespace TestWPF1
         {
             IMyPolyline _originalPolyline = myPolyline.createMyPolyline();
             _originalPolyline.getPolyline().Stroke = MyBrushes.Black;
-            foreach (StylusPoint aStylusPoint in _newStroke.getStroke().StylusPoints)
-            {
-                _originalPolyline.getPolyline().Points.Add(aStylusPoint.ToPoint());
-            }
+            _originalPolyline.setPolylinePoints(_newStroke);
             return _originalPolyline;
         }
 
-        public void printPolyline(InkCanvas _InkCanvas, MyPoint _firstPoint, MyPoint _endPoint)
+        public void printPolyline(InkCanvas _InkCanvas, IMyPoint _firstPoint, IMyPoint _endPoint)
         {
-            IMyPolyline newPolyline = myPolyline.createMyPolyline();
-            newPolyline.getPolyline().Points.Add(_firstPoint.getPoint());
-            newPolyline.getPolyline().Points.Add(_endPoint.getPoint());
-            newPolyline.getPolyline().Stroke = Brushes.Black;
+            IMyPolyline newPolyline = myPolyline.makePolylineWithPoints(_firstPoint, _endPoint, Brushes.Black);
             _InkCanvas.Children.Add(newPolyline.getPolyline());
         }
 

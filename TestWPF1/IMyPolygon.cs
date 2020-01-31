@@ -12,5 +12,6 @@ namespace TestWPF1
 
         MyStylusPointCollection getPolygonPoints();
         void setPolygonPoints(IMyStroke _stroke);
+        Polygon createPolygonFromStrokeCollection(MyStrokeCollection _myStrokeCollection);
     }
 }

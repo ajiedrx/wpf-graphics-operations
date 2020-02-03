@@ -10,11 +10,10 @@ namespace TestWPF1
 {
     public interface IMyStroke
     {
-        void createMyStroke(MyStylusPointCollection _stylusPointCollection, MyDrawingAttributes _myDrawingAttributes);
         Stroke createStroke(MyStylusPointCollection _stylusPointCollection, MyDrawingAttributes _myDrawingAttributes);
-        void removeStrokesOnCanvas(InkCanvas _InkCanvas, IMyStroke _stroke);
+        void removeStrokeOnCanvas(InkCanvas _InkCanvas, Stroke _stroke);
         Stroke getStroke();
         void setStroke(Stroke _stroke);
-        void addStrokesOnCanvas(InkCanvas _InkCanvas, IMyStroke _stroke);
+        void addStrokeOnCanvas(InkCanvas _InkCanvas, Stroke _stroke);
     }
 }

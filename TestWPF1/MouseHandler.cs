@@ -9,8 +9,7 @@ namespace TestWPF1
         ICanvasObjectHandler canvasObjectHandler;
         private IMyPoint myPoint;
 
-        public MouseHandler() {
-        }
+        public MouseHandler() { }
 
         public void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler) {
             this.canvasObjectHandler = _canvasObjectHandler;
@@ -35,8 +34,7 @@ namespace TestWPF1
             this.myPoint = _myPoint;
         }
 
-        public IMyPoint getMyPointOnMouseUp(MouseButtonEventArgs _e, MainWindow _mainWindow)
-        {
+        public IMyPoint getMyPointOnMouseUp(MouseButtonEventArgs _e, MainWindow _mainWindow) {
             IMyPoint endPoint = myPoint.createMyPoint();
             endPoint.setPoint(_e.GetPosition(_mainWindow));
             return endPoint;

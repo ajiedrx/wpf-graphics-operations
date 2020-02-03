@@ -4,8 +4,8 @@ namespace TestWPF1
 {
     public interface IColorHandler
     {
-         void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker);
-         string getColorFill();
+        void onColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker);
+        string getColorFill();
         void setCanvasObjectHandler(ICanvasObjectHandler _canvasObjectHandler);
         void setGraphicsOperations(IGraphicsOperations _graphicsOperations);
         void checkOnColorPick(InkCanvas _InkCanvas, Xceed.Wpf.Toolkit.ColorPicker _colorPicker);

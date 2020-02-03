@@ -43,7 +43,7 @@ namespace TestWPF1
             return polygon;
         }
 
-        public void setPolygonPoints(IMyStroke _stroke){
+        public void setPolygonPointsFromStroke(IMyStroke _stroke){
             foreach (StylusPoint aStylusPoint in _stroke.getStroke().StylusPoints) {
                 polygon.Points.Add(aStylusPoint.ToPoint());
             }

@@ -46,17 +46,17 @@ namespace TestWPF1
             IMyPolygon originalPolygon = myPolygon.createPolygon();
             originalPolygon.setPolygon(_obj.OriginalSource);
             myStroke.createStroke(originalPolygon.getPolygonPoints(), myDrawingAttributes.createMyDrawingAttributes(Colors.Black));
-            _InkCanvas.Strokes.Add(myStroke.getStroke());
+            myStroke.addStrokeOnCanvas(_InkCanvas, myStroke.getStroke());
             originalPolygon = createNewPolygonFromStroke(myStroke, _color);
-            _InkCanvas.Strokes.Remove(myStroke.getStroke());
-            originalPolygon.getPolygon().Stroke = Brushes.Black;
+            myStroke.removeStrokeOnCanvas(_InkCanvas, myStroke.getStroke());
+            originalPolygon.getPolygon().Stroke = MyBrushes.Black;
             _InkCanvas.Children.Add(originalPolygon.getPolygon());
         }
 
         public IMyPolygon createNewPolygonFromStroke(IMyStroke _newStroke, string _color) {
             IMyPolygon newPolygon = myPolygon.createPolygon();
             newPolygon.getPolygon().Stroke = MyBrushes.Black;
-            newPolygon.setPolygonPoints(_newStroke);
+            newPolygon.setPolygonPointsFromStroke(_newStroke);
             newPolygon.getPolygon().Fill = myBrushConverter.getConvertedBrush(_color);
             return newPolygon;
         }
@@ -82,8 +82,7 @@ namespace TestWPF1
             this.colorHandler = _colorHandler;
         }
 
-        public void setMyBrushConverter(IMyBrushConverter _myBrushConverter)
-        {
+        public void setMyBrushConverter(IMyBrushConverter _myBrushConverter) {
             this.myBrushConverter = _myBrushConverter;
         }
     }

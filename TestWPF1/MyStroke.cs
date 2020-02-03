@@ -14,14 +14,9 @@ namespace TestWPF1
             this.stroke = new Stroke(_stylusPointCollection, _myDrawingAttributes);
         }
 
-        public void addStrokesOnCanvas(InkCanvas _InkCanvas, IMyStroke _stroke)
+        public void addStrokeOnCanvas(InkCanvas _InkCanvas, Stroke _stroke)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void createMyStroke(MyStylusPointCollection _stylusPointCollection, MyDrawingAttributes _myDrawingAttributes)
-        {
-            throw new System.NotImplementedException();
+            _InkCanvas.Strokes.Add(_stroke);
         }
 
         public Stroke createStroke(MyStylusPointCollection _stylusPointCollection, MyDrawingAttributes _myDrawingAttributes)
@@ -34,9 +29,9 @@ namespace TestWPF1
             return this.stroke;
         }
 
-        public void removeStrokesOnCanvas(InkCanvas _InkCanvas, IMyStroke _stroke)
+        public void removeStrokeOnCanvas(InkCanvas _InkCanvas, Stroke _stroke)
         {
-            throw new System.NotImplementedException();
+            _InkCanvas.Strokes.Remove(_stroke);
         }
 
         public void setStroke(Stroke _stroke) {

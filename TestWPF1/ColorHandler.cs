@@ -62,12 +62,6 @@ namespace TestWPF1
             fillPolygon();
             _InkCanvas.Children.Remove(canvasObjectHandler.getPolygonShape().getMyPolygon().getPolygon());
         }
-        public string getColorAttr() {
-            return colorAttr;
-        }
-        public void setColorAttr(string _colorAttr) {
-            colorAttr = _colorAttr;
-        }
         public string getColorFill() {
             return colorFill;
         }

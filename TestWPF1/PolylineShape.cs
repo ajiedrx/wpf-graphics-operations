@@ -24,10 +24,10 @@ namespace TestWPF1
             IMyPolyline originalPolyline = myPolyline.createMyPolyline();
             originalPolyline.setPolyline(_obj.OriginalSource);
             myStroke.createStroke(originalPolyline.getPolylinePoints(), myDrawingAttributes.createMyDrawingAttributes(Colors.Black));
-            _InkCanvas.Strokes.Add(myStroke.getStroke());
+            myStroke.addStrokeOnCanvas(_InkCanvas, myStroke.getStroke());
             originalPolyline = createNewPolylineFromStroke(myStroke);
-            _InkCanvas.Strokes.Remove(myStroke.getStroke());
-            originalPolyline.getPolyline().Stroke = Brushes.Black;
+            myStroke.removeStrokeOnCanvas(_InkCanvas, myStroke.getStroke());
+            originalPolyline.getPolyline().Stroke = MyBrushes.Black;
             _InkCanvas.Children.Add(originalPolyline.getPolyline());
         }
 
